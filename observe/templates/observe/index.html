@@ -1,0 +1,153 @@
+{% extends 'observe/base.html'%}
+{%load static%}
+
+{%load leaflet_tags%}
+{% leaflet_js%}
+{% leaflet_css%}
+
+{% block content %}
+
+
+<!--{% if messages %}-->
+<!--{% for message in messages %}-->
+<!--<div class="alert alert-{{message.tags}}">{{message}}</div>-->
+<!--{%endfor%}-->
+<!--{%endif%}-->
+<div class="jumbotron p-3 p-md-5  rounded " style="background-image:url('static/images/syria-d.jpg') ;
+-moz-background-size:cover;
+-webkit-background-size:cover;
+-o-background-size:cover;
+ background-size:cover;
+height:600px;">
+    <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic" style="color:yellow !important;">Syrian Arab Republic
+
+        </h1>
+        <h3 class="text-white font-italic my-3" style="color:blue !important;"> Ministry of Water Resources.</h3>
+        <h4 class="text-white  font-italic mb-0"><a href="#" class="text-white font-weight-bold" style="color:#39395e !important;">Water Resources Information Center...</a></h4>
+    </div>
+</div>
+<h1 class="text-center mb-5 font-italic" style="color:Red; padding:10px;margin-bottom:5px;"> Features</h1>
+<div class="row m-1 mb-2">
+    <div class="col-md-3">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+            <img class="card-img-right flex-auto d-none d-md-block img-thumbnail" style="height:200px; width:130px;"
+                 src="{%static 'images/spring1.jpg' %}" alt="Card image cap">
+            <div class="card-body d-flex flex-column align-items-start ">
+                <strong class="d-inline-block mb-2 " style="color:#1f240e;">Spring Points</strong>
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="mb-0" style="margin-left: 5px;">
+                        All process related with spring points
+                    </p></div>
+
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="card-text  text-muted" style="margin-left: 5px;"> In addition add new spring point</p>
+                </div>
+                {% if user.is_authenticated %}
+                <a type="button" class="btn btn-secondary font-italic" href="{% url 'xy_springs'%}">Spring points</a>
+
+                {%endif%}
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+            <img class="card-img-right flex-auto d-none d-md-block img-thumbnail" style="height:200px; width:130px;"
+                 src="{%static 'images/river1.jpg' %}" alt="Card image cap">
+
+            <div class="card-body d-flex flex-column align-items-start">
+                <strong class="d-inline-block mb-2 text-primary">River Points</strong>
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="mb-0" style="margin-left: 5px;">
+                        All process related with spring points
+                    </p></div>
+
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="card-text  text-muted" style="margin-left: 5px;"> In addition add new spring point</p>
+                </div>
+
+                {% if user.is_authenticated %}
+                <a type="button" class="btn btn-info font-italic " href="{% url 'xy_rivers'%}">River points</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+
+            <img class="card-img-right flex-auto d-none d-md-block img-thumbnail" style="height:200px; width:130px;"
+                 src="{%static 'images/wells1.jpg' %}" alt="Card image cap">
+            <div class="card-body d-flex flex-column align-items-start">
+                <strong class="d-inline-block mb-2 text-success">Well Points</strong>
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="mb-0" style="margin-left: 5px;">
+                        All process related with well points
+                    </p></div>
+
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="card-text  text-muted" style="margin-left: 5px;"> In addition add new well point</p></div>
+
+                {% if user.is_authenticated %}
+                <a type="button" class="btn btn-success font-italic " href="{% url 'xy_wells'%}">Well points</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+
+            <img class="card-img-right flex-auto d-none d-md-block img-thumbnail" style="height:200px; width:130px;"
+                 src="{%static 'images/climate_station1.jpg' %}" alt="Card image cap">
+            <div class="card-body d-flex flex-column align-items-start">
+                <strong class="d-inline-block mb-2 " style="color:orange">Climate_Station</strong>
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="mb-0" style="margin-left: 5px;">
+                        All process related with metology points
+                    </p></div>
+
+                <div class="box1" style="display:flex;"><i class="fa fa-star fa-xs" style="padding-top: 5px;"></i>
+                    <p class="card-text  text-muted" style="margin-left: 5px;"> In addition add new metology point</p>
+                </div>
+
+                {% if user.is_authenticated %}
+                <a type="button" class="btn btn-warning font-italic" href="{% url 'xy_metologys'%}">Metology points</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+<h1 class="text-center mb-5 p-10 font-italic" style="color:Red; padding:10px;margin-bottom:5px;">Other Studies</h1>
+
+<div class="container text-center">
+    <div class="row mb-2">
+        <div class="col-lg-4">
+            <img class="rounded-circle" src="{%static 'images/water-pumping-station1.jpg' %}"
+                 alt="Generic placeholder image" width="140" height="140">
+            <h2 class="mt-3 font-italic" style="color:#f99614;">Pumping Stations</h2>
+            <p>u can add edit or delete pump station. in addition to there are alot of studings on each pump so ther is
+                moe interfaces related.</p>
+            <p><a class="btn btn-secondary" href="{% url 'waterpoints'%}" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="rounded-circle" src="{%static 'images/water-treatment-plant1.jpg' %}"
+                 alt="Generic placeholder image" width="140" height="140">
+            <h2 class="mt-3 font-italic" style="color:#397169;">Water Treatment Station</h2>
+            <p>u can add edit or delete water treatment station. in addition to there are alot of studings on each
+                treatment so there are moe interfaces related with each sample.</p>
+            <p><a class="btn btn-secondary" href="{% url 'stations'%}" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="rounded-circle " src="{%static 'images/geophisics.jpg' %}" alt="Generic placeholder image"
+                 width="140" height="140">
+            <h2 class="mt-3 font-italic" style="color:#fc1e8f;">Geophysics Studies</h2>
+            <p> there are alot of studings on each samples so ther is moe interfaces related.</p>
+            <p><a class="btn btn-secondary" href="{% url 'stations'%}" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+</div>
+
+
+{% endblock content%}

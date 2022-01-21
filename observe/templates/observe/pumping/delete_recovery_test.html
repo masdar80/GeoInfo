@@ -1,0 +1,16 @@
+
+
+
+<form method="post"  action="{% url 'recovery-test-form-delete' pumping_id recovery_test.pk %}">
+          {% csrf_token %}
+          <div class="modal-body">
+              <p class="delete-text">Are you sure you want to delete this recovery_test with rct_waterdepth
+              <strong>{{recovery_test.rct_waterdepth}}</strong>?</p>
+          </div>
+
+          <div class="modal-footer">
+            <input type="submit" class="delete-btn btn btn-danger" value="delete"/>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

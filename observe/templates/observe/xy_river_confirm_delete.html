@@ -1,0 +1,41 @@
+
+
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+
+
+
+
+{% block content %}
+<div class="container">
+    <div class="border m-2 p-2 border-red">
+        <h2 p-2 m-2 class="text-center" >Delete Water Point</h2>
+        <hr style="border-top: 1px solid red;">
+<form method="post">{% csrf_token %}
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+       <div class="col-md-6">
+      are u sure to delete this point whitch id_field is{{ object.id_field }}
+    </div>
+
+  </div>
+
+
+
+  <hr>
+
+    <div class="">
+      <input class="btn btn-danger  btn-lg float-right" type="submit" value="Delete" />
+        <a href="{% url 'xy_rivers'   %}" class="btn btn-primary  btn-lg "><i class="fas fa-stream"> </i> Cancel</a>
+    </div>
+
+
+
+</form>
+    </div>
+</div>
+{% endblock %}

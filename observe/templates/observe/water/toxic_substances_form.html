@@ -1,0 +1,57 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-3">{{form.date|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.phenol|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.benzen|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.mbas|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+             <div class="col col-md-3">{{form.b|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.f|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.bhc_a|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.bhc_b|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.abs|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.aox|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.pcb|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.dioxin|as_crispy_field}}</div>
+        </div>
+
+
+<div class="row">
+
+            <div class="col col-md-6">{{form.chlorodan_a|as_crispy_field}}</div>
+        </div>
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'toxic-substances-list' watersampling_id=watersampling_id  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

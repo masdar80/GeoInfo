@@ -1,0 +1,40 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_date:
+    {{ snowfall.obs_datetime }}
+  </div>
+  <div class="">
+    dailysnowfall:
+    {{ snowfall.dailysnowfall }}
+  </div>
+      <div class="">
+    meas_method:
+    {{ snowfall.meas_method }}
+  </div>
+  <div class="">
+    data_source:
+    {{ snowfall.data_source }}
+  </div>
+
+  <div class="">
+    other_source:
+    {{ snowfall.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ snowfall.remarks  }}
+    €
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

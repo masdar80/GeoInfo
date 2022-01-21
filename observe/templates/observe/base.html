@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+{%load static%}
+{% load i18n %}
+{% load leaflet_tags %}
+<html lang="en">
+  <head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="water resource information center ">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/bootstrap-datepicker.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/fontawesome-all.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/jquery.dataTables.min.css'%}">
+
+
+       {% leaflet_js plugins="ALL" %}
+       {% leaflet_css plugins="ALL" %}
+
+      <style type="text/css">
+        #gis{
+        width:100%;
+        height:580px;
+        margin-top:3px;}
+    </style>
+      <style>
+
+    .leaflet-container {  /* all maps */
+        width:  900px;
+        height: 500px;
+    }
+
+    #specialbigmap {
+        height: 800px;
+    }
+
+    /* Resize the "display_raw" textbox */
+    .django-leaflet-raw-textarea {
+        width: 100%;
+    }
+
+</style>
+    <link rel="stylesheet" href="{%static 'leaflet/css/L.Control.Locate.css'%}">
+    <script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bundle.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/highcharts.scr.js' %}"></script>
+
+    <link rel="stylesheet" href="{%static 'css/main.css'%}">
+
+    <title>Water Resource Information System</title>
+
+  </head>
+
+  <body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary" style="background-color:#121e54 !important">
+  <a class="navbar-brand font-italic font-bold" href="#" style="font-size:40px; color:rgba(45, 134, 231, 0.9);"> WRIC
+  <img src= "{%static 'images/logo.jpg' %}" width="50px;" style="border-radius:50%" alt="photo">
+  </a>
+  <a class="navbar-brand font-italic font-bold" href="{%url 'home'%}" style="font-size:40px; color:rgba(45, 134, 231, 0.9);"> Home
+    <i class="fa fa-home fa-1x"></i>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#">about</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item dropdown">-->
+<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--          Dropdown-->
+<!--        </a>-->
+<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--          <a class="dropdown-item" href="#">Edit Profile</a>-->
+<!--          <a class="dropdown-item" href="#">Add new waterpoint</a>-->
+<!--          <div class="dropdown-divider"></div>-->
+<!--          <a class="dropdown-item" href="#">view Activity</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+    </ul>
+<ul class="nav justify-content-end ">
+  {% if user.is_authenticated %}
+<!--    <li class="nav-item ">-->
+<!--    <a  type="button" class="btn btn-outline-warning nav-link  active font-italic" style=" color:rgba(45, 134, 231, 0.9);" href="#">Add new Point</a>-->
+<!--  </li>-->
+<!--  <li class="nav-item">-->
+<!--    <a  type="button" class="btn btn-outline-warning nav-link font-italic mr-10"style="font-size:30px; color:rgba(45, 134, 231, 0.9); margin-right:10px;" href="{%url 'profile'%}">Edit Profile</a>-->
+<!--  </li>-->
+   <li class="nav-item">
+    <a  type="button" class="btn btn-outline-danger nav-link font-italic ml-10"style="font-size:30px; color:rgba(45, 134, 231, 0.9);" href="{%url 'logout'%}">LogOut</a>
+  </li>
+  {%else%}
+<!--    <li class="nav-item ">-->
+<!--    <a class="nav-link  active btn btn-outline-warning nav-link font-italic mr-10" style="font-size:30px; color:rgba(45, 134, 231, 0.9); margin-right:10px;" href="{%url 'register'%}">Register</a>-->
+<!--  </li>-->
+  <li class="nav-item">
+    <a class="nav-link font-italic btn btn-outline-danger nav-link font-italic ml-10" style="font-size:30px; color:rgba(45, 134, 231, 0.9); margin-right:10px;" href="{%url 'login'%}">Login</a>
+  </li>
+  {%endif%}
+
+
+</ul>
+  </div>
+</nav>
+
+<section>
+{% block content%}
+
+  {% endblock content %}
+</section>
+
+  <footer class="page-footer ">
+
+  <div class="footer-copyright text-center p-3 bg-secondary font-italic" style="font-size:30px; color:rgba(45, 134, 231, 0.9);">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> NAJAT ALALI</a>
+  </div>
+  </footer>
+    <script src="{% static 'js/jquery-3.3.1.js' %}" ></script>
+    <script src="{% static 'js/popper.min.js' %}" ></script>
+
+    <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}" ></script>
+
+    <script src="{% static 'js/fontawesome-all.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}" ></script>
+    <script src="{% static 'js/bootstrap-datepicker.min.js' %}" ></script>
+    <script src="{% static 'js/plugin.js' %}" ></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+     $('#rdd').DataTable();
+     $('#rdm').DataTable();
+     $('#rda').DataTable();
+     $('#rhq').DataTable();
+     $('#rfm').DataTable();
+     $('#rds').DataTable();
+     $('#rss').DataTable();
+      $('#sdm').DataTable();
+     $('#sda').DataTable();
+     $('#sdd1').DataTable();
+     $('#sdaa').DataTable();
+     $('#sdam').DataTable();
+     $('#ed').DataTable();
+     $('#em').DataTable();
+     $('#td').DataTable();
+     $('#tm').DataTable();
+     $('#water-sample').DataTable();
+          $('#heavymetals_rareelement').DataTable();
+
+$('#hydrochemical').DataTable();
+
+     $('#pa').DataTable();
+      $('#pd').DataTable();
+    $('#pm').DataTable();
+     $('#hm').DataTable();
+    $('#hd').DataTable();
+     $('#wd').DataTable();
+      $('#wm').DataTable();
+       $('#sd').DataTable();
+        $('#air').DataTable();
+         $('#gwl').DataTable();
+ $('#gwlm').DataTable();
+  $('#agw').DataTable();
+$('#wq').DataTable();
+     $("#wtl").DataTable();
+      $("#ll").DataTable();
+       $("#ld").DataTable();
+        $("#lp").DataTable();
+         $("#wl").DataTable();
+          $("#casing").DataTable();
+           $("#packing").DataTable();
+            $("#drill").DataTable();
+            $("#field-parameter").DataTable();
+
+$("#meto_report").DataTable();
+$("#air-report").DataTable();
+      $("#all").DataTable();
+      $("#pump-1").DataTable();
+      $("#pump-2").DataTable();
+      $("#pump-3").DataTable();
+      $("#pump-4").DataTable();
+       $("#stations").DataTable();
+         $("#waterpoints").DataTable();
+          $("#pump-test").DataTable();
+          $("#pump-test2").DataTable();
+            $("#continious_dis").DataTable();
+              $("#step-drawdown").DataTable();
+               $("#recovery-test").DataTable();
+               $("#othercommon_parameters").DataTable();
+
+$("#eutrophication2").DataTable();
+$("#toxic_substances").DataTable();
+
+} );
+
+</script>
+
+  <script>
+    $( document ).ready(function() {
+        $( "#datepicker1" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepicker-1" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepicker-2" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepicker2" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepickersdaf" ).datepicker({});
+         $( "#datepickersdd" ).datepicker();
+        $( "#datepickersdaa" ).datepicker();
+        $( "#datepickersdam" ).datepicker();
+        $( "#datepickersdam-1" ).datepicker();
+        $( "#datepickersdm" ).datepicker();
+        $( "#datepicker6" ).datepicker({
+        format: 'yyyy-mm-dd'});
+         $( "#datepicker7" ).datepicker({
+        format: 'yyyy-mm-dd'});
+         $( "#datepicker8" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepickerd-1" ).datepicker({
+        format: 'yyyy-mm-dd'});
+         $( "#datepickerd-2" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $( "#datepicker21" ).datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickerrdd").datepicker({
+        format: 'yyyy-mm-dd'});
+         $("#datepickerrdm").datepicker({
+        format: 'yyyy-mm-dd'});
+
+         $("#datepickerrda").datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickerrhq").datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickerrfm").datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickerrds").datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickerrss").datepicker({
+        format: 'yyyy-mm-dd'});
+        $("#datepickered").datepicker();
+        $("#datepickerem").datepicker();
+        $("#datepickertd").datepicker();
+        $("#datepickertm").datepicker();
+        $("#datepickerwd").datepicker();
+        $("#datepickerwm").datepicker();
+        $("#datepickerwl").datepicker();
+        $("#datepickerwl-1").datepicker();
+
+        $("#datepickerll").datepicker();
+         $("#datepickerll-1").datepicker();
+
+        $("#datepickerdrill").datepicker();
+        $("#datepickerdrill-1").datepicker();
+        $("#datepickercasing").datepicker();
+         $("#datepickercasing-1").datepicker();
+        $("#datepickerpacking").datepicker();
+         $("#datepickerpacking-1").datepicker();
+           $("#datepickerdepth").datepicker();
+ $("#datepickerwsample").datepicker();
+  $("#datepickertaste_datetime").datepicker();
+   $("#datepickerwsample_datetime").datepicker();
+      $("#datepickerpto").datepicker();
+         $("#datepickerpfrom").datepicker();
+ $("#datepickerheavymetals_rareelement").datepicker();
+
+        $("#datepickerpa").datepicker();
+        $("#datepickerpm").datepicker();
+        $("#datepickerpd").datepicker();
+        $("#datepickersd").datepicker();
+        $("#datepickerair").datepicker();
+        $("#datepickerhm").datepicker();
+        $("#datepickerhd").datepicker();
+        $("#datepickerhd_min").datepicker();
+        $("#datepickerhd_max").datepicker();
+        $("#datepickerothercommon_parameters").datepicker();
+
+
+         $("#datepickergwl").datepicker({
+        format: 'yyyy-mm-dd'});
+         $("#datepickergwlm").datepicker({
+        format: 'yyyy-mm-dd'});
+         $("#datepickeragw").datepicker({
+        format: 'yyyy-mm-dd'});
+         $("#datepickerwq").datepicker({
+        format: 'yyyy-mm-dd'});
+         $("#datepickerwtl").datepicker();
+         $("#datepickerwtl-1").datepicker();
+        $( "#datepicker-pump-12" ).datepicker();
+        $( "#datepicker-pump-13" ).datepicker();
+        $( "#datepicker-pump-1" ).datepicker();
+        $( "#datepickercds_date" ).datepicker();
+        $( "#datepickerstep-dd" ).datepicker();
+        $( "#datepickeraccumulate" ).datepicker();
+        $( "#datepicker-recovery" ).datepicker();
+        $( "#datepickerfieldp" ).datepicker();
+        $( "#datepickereutrophication2" ).datepicker();
+         $( "#datepickerhydrochemical" ).datepicker();
+$( "#datepickertoxic_substances" ).datepicker();
+
+$( "#datepickerriver_survay_date" ).datepicker();
+$( "#datepickerriver_open_date" ).datepicker();
+$( "#datepickerriver_close_date" ).datepicker();
+
+$( "#datepickerspring_survay_date" ).datepicker();
+$( "#datepickerspring_open_date" ).datepicker();
+$( "#datepickerspring_close_date" ).datepicker();
+$( "#datepickermetology_survay_date" ).datepicker();
+$( "#datepickermetology_open_date" ).datepicker();
+$( "#datepickermetology_close_date" ).datepicker();
+$( "#datepickerwell_survay_date" ).datepicker();
+$( "#datepickerwell_open_date" ).datepicker();
+$( "#datepickerwell_close_date" ).datepicker();
+$( "#datepickersnowdepth" ).datepicker();
+$( "#datepickersnowfall" ).datepicker();
+
+
+
+    });
+</script>
+
+  {% block extrascripts %}{% endblock extrascripts %}
+
+  </body>
+</html>

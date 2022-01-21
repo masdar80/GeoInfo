@@ -1,0 +1,30 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+   <div class="">
+
+    old_id:
+    {{ log_plot.old_id }}
+  </div>
+  <div class="">
+    log_design:
+    {{ log_plot.log_design }}
+  </div>
+    <div class="">
+    log_description:
+    {{ log_plot.log_description  }}
+    €
+  </div>
+  <div class="">
+    log_inf:
+    {{ log_plot.log_inf }}
+  </div>
+
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

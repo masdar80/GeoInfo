@@ -1,0 +1,241 @@
+
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+{% block content %}
+
+
+<script type="text/javascript">
+var map_xy_station = {{map_xy_station|safe}};
+          console.log(map_xy_station);
+               function our_layer(map,options){
+               var dataset = new L.GeoJSON(map_xy_station,{
+              onEachFeature: function(feature,url){
+                    popupOptions = {maxWidth:250};
+                    url.bindPopup("<b>English_name: </b>" +feature.properties.english_name.toString()+
+                     "<br/><b>Arabic_name: </b>"+feature.properties.arabic_name.toString()+
+                     "<br/><b>Sourcetype: </b>"+feature.properties.sourcetype.toString()+
+                     "<br/><b>Mohafaza :</b>"+feature.properties.mohafaza.toString()
+                     ,popupOptions);
+
+    },
+               pointToLayer: function(feature, latlng){
+                var greenIcon = L.icon({
+                            iconUrl: '/static/leaflet/images/station.png/',
+                            iconSize:     [35, 50], // size of the icon
+                            shadowSize:   [50, 64], // size of the shadow
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            shadowAnchor: [4, 62],  // the same for the shadow
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+                       return L.marker(latlng,{icon: greenIcon});
+               }
+               });
+                dataset.addTo(map);
+               }
+
+</script>
+ <h3 class="text-center bg-warning p-2 mb-0">Water Station </h3>
+<div class="row">
+
+    <div class="col col-md-12">
+         {% leaflet_map "gis"  callback='window.our_layer'  %}
+
+    </div>
+
+</div>
+<br/>
+    <div class="border border-primary mt-2 mb-2 p-2 " >
+<!-------------->
+<div id="accordion" class=" border-primary pb-2 mb-2 pt-2 mt-2 ">
+  <div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         Water Sampling
+        </button>
+      </h5>
+    </div>
+<!---form -->
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+        <div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">Water Sampling</h2>
+
+        <table id="water-sample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+                  <th class="th-sm">sample_id
+                  </th>
+                 <th class="th-sm">id_pk
+                  </th>
+                    <th class="th-sm">analysis_type
+                  </th>
+                  <th class="th-sm">laboratory_name
+                  </th>
+                    <th class="th-sm">sample_datetime
+                  </th>
+                   <th>show</th>
+
+                    <th class="th-sm">Edit
+                  </th>
+                    <th class="th-sm">Delete
+                  </th>
+                 <th class="th-sm">Other Related Informations
+                  </th>
+            </tr>
+           </thead>
+          <tbody>
+        {% for watersampling in watersamplingsnew.all %}
+            <tr>
+                <td>{{watersampling.sample_id}}</td>
+                <td>{{waterchemistrysurvey_station_id}}</td>
+               <td>{{watersampling.analysis_type}}</td>
+               <td>{{watersampling.laboratory_name}}</td>
+               <td>{{watersampling.sample_datetime}}</td>
+
+
+
+              <td>
+          <button type="button" class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal2-{{waterchemistrysurvey_station_id}}-{{watersampling.pk}}">
+                                  <span class="fa fa-eye"></span>
+                                </button>
+        <div class="modal fade" id="myModal2-{{waterchemistrysurvey_station_id}}-{{watersampling.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">water sample Details</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  {% include 'observe/water/read_watersample.html'%}
+            </div>
+          </div>
+        </div>
+
+              </td>
+
+              <td>
+                      <a type="button" class="btn btn-sm btn-warning" href="{%url 'watersample-form-update'  waterchemistrysurvey_station_id watersampling.pk %}">
+                                  <span class="fa fa-edit"></span>
+                       </a>
+
+              </td>
+              <td>
+                <button type="button" class="delete-rdd btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal-{{waterchemistrysurvey_station_id}}-{{watersampling.pk}}">
+                                  <span class="fa fa-trash"></span></button>
+
+                <div class="modal fade" id="myModal-{{waterchemistrysurvey_station_id}}-{{watersampling.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">Delete water sample</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+                {% include 'observe/water/delete_watersample.html'%}
+            </div>
+          </div>
+        </div>
+
+            </td>
+    <td>
+                          <button type="button" class="btn btn-outline-warning"  data-toggle="modal" data-target="#watersample-{{ watersampling.pk }}">
+                                                  <i class="far fa-eye bg-success fa-2x"> </i> Show Other Related Tables
+                                                </button>
+                          <div class="modal fade" id="watersample-{{ watersampling.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div style="background-color:goldenrod; ">
+                              <div class="modal-header ">
+                            <h3 class="modal-title ">Other Related Table  {{watersample.sample_datetime}}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                            </div>
+                                <form method="post"  action="">
+                          {% csrf_token %}
+                       <div class="modal-body">
+                           <div class="list-group">
+                  <a href="{%url 'fieldparameter-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Field Parameter</a>
+                  <a href="{%url 'eutrophication2-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Eutrophication2</a>
+               <a href="{%url 'hydrochemical-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Hydrochemical</a>
+
+                 <a href="{%url 'heavymetals-rareelement-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Heavymetals Rareelement</a>
+                 <a href="{%url 'toxic-substances-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Toxic Substances</a>
+                   <a href="{%url 'othercommon-parameters-list' watersampling.pk %}" class="list-group-item  list-group-item-warning list-group-item-action">Othercommon Parameters</a>
+
+
+
+
+                </div>
+
+                </div>
+
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-success btn-lg " data-dismiss="modal">Close</button>
+                          </div>
+
+                   </form>
+                            </div>
+                          </div>
+                          </div>
+
+                        </td>
+
+            </tr>
+
+
+        {% empty %}
+        {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <tr>
+                <th class="th-sm">sample_id
+                  </th>
+                <th class="th-sm">id_pk
+                  </th>
+                 <th class="th-sm">analysis_type
+                  </th>
+                    <th class="th-sm">laboratory_name
+                  </th>
+                    <th class="th-sm">sample_datetime
+                  </th>
+                <th>Show</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th class="th-sm">Other Related Informations</th>
+
+            </tr>
+          </tfoot>
+        </table>
+
+
+</div>
+
+
+        <div class="row m-2 ">
+
+<div class="col col-md-6"> <a type="button" class=" btn  btn-warning btn-lg" href="{% url 'stations'  %}">
+                          <i class="fa fa-backward"></i> Back To Water Stations</a></div>
+<div class="col col-md-6"> <a type="button" class=" btn  btn-primary btn-lg" href="{% url 'watersample-form-insert' waterchemistrysurvey_station_id  %}">
+                          <span class="fa fa-plus"></span> ADD New Reading</a></div>
+
+        </div>
+
+
+
+
+    </div>
+  </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock content %}

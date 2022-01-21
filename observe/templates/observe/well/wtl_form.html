@@ -1,0 +1,59 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-3">{{form.meas_date|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.x_stm|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.y_stm|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.z_stm|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.x_utm|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.y_utm|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.z_utm|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.ground_level|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+           <div class="col col-md-6">{{form.top_concrete|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.top_casing|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.source|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.method|as_crispy_field}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-6">{{form.accuracy|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.convert_g_sys|as_crispy_field}}</div>
+        </div>
+
+
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'wtl-list' id_field=id_field  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

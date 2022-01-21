@@ -1,0 +1,16 @@
+
+
+
+<form method="post"  action="{% url 'hydrochemical-form-delete' watersampling_id hydrochemical.pk %}">
+          {% csrf_token %}
+          <div class="modal-body">
+              <p class="delete-text">Are you sure you want to delete this hydrochemical with hard_total_mg_l
+              <strong>{{hydrochemical.hard_total_mg_l}}</strong>?</p>
+          </div>
+
+          <div class="modal-footer">
+            <input type="submit" class="delete-btn btn btn-danger" value="delete"/>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

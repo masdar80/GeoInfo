@@ -1,0 +1,54 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_date:
+    {{ temperature_daily.obs_date }}
+  </div>
+  <div class="">
+    daily_avg:
+    {{ temperature_daily.daily_avg }}
+  </div>
+    <div class="">
+    daily_max:
+    {{ temperature_daily.daily_max  }}
+    €
+  </div>
+
+<div class="">
+    daily_min:
+    {{ temperature_daily.daily_min }}
+  </div>
+  <div class="">
+    max_time:
+    {{ temperature_daily.max_time }}
+  </div>
+    <div class="">
+    min_time:
+    {{ temperature_daily.min_time  }}
+    €
+  </div>
+      <div class="">
+    data_source:
+    {{ temperature_daily.data_source  }}
+    €
+  </div>
+      <div class="">
+    other_source:
+    {{ temperature_daily.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ temperature_daily.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

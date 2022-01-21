@@ -1,0 +1,30 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    year:
+    {{ precipitation_annual.year }}
+  </div>
+  <div class="">
+    annual_precipitation:
+    {{ precipitation_annual.annual_precipitation }}
+  </div>
+    <div class="">
+    annual_avg_precipitation:
+    {{ precipitation_annual.annual_avg_precipitation  }}
+
+  </div>
+    <div class="">
+    remarks:
+    {{ precipitation_annual.remarks }}
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

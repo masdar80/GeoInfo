@@ -1,0 +1,28 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    rct_datetime:
+    {{ recovery_test.rct_datetime }}
+  </div>
+  <div class="">
+    rct_waterdepth:
+    {{ recovery_test.rct_waterdepth }}
+  </div>
+
+   <div class="">
+    rct_drawdown:
+    {{ recovery_test.rct_drawdown }}
+  </div>
+
+
+
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

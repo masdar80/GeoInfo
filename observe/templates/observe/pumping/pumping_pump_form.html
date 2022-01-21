@@ -1,0 +1,50 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-6">{{form.pmp_pumpdepth|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.pmp_startdatetime|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.pmp_enddatetime|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.pmp_time|as_crispy_field}}</div>
+
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.pmp_discharge|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.pmp_pumptype|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.pmp_generatortype|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.pmp_dischargemethod|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.pmp_capacitydevice|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.pmp_manometertype|as_crispy_field}}</div>
+        </div>
+
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

@@ -1,0 +1,41 @@
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+   <div class="">
+    logdata_type:
+    {{ loggingdata.logdata_type }}
+  </div>
+  <div class="">
+    depth:
+    {{ loggingdata.depth }}
+  </div>
+    <div class="">
+    value:
+    {{ loggingdata.value  }}
+    €
+  </div>
+  <div class="">
+    rock:
+    {{ loggingdata.rock }}
+  </div>
+  <div class="">
+    data_source:
+    {{ loggingdata.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ loggingdata.other_source  }}
+
+  </div>
+      <div class="">
+    remarks:
+    {{ loggingdata.remarks  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

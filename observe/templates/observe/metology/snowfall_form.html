@@ -1,0 +1,47 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-6">{{form.obs_datetime|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.dailysnowfall|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.meas_method|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.data_source|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.other_source|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.remarks|as_crispy_field}}</div>
+        </div>
+
+
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'snowfall-list' id_field=id_field  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

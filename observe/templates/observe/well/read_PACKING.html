@@ -1,0 +1,27 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+
+    packing_from:
+    {{ packing.packing_from }}
+  </div>
+  <div class="">
+    packing_to:
+    {{ packing.packing_to }}
+  </div>
+    <div class="">
+    packing_layer:
+    {{ packing.packing_layer  }}
+    €
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

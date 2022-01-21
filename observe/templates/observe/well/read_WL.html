@@ -1,0 +1,42 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+   <div class="">
+    log_from:
+    {{ welllogging.log_from }}
+  </div>
+  <div class="">
+    log_to:
+    {{ welllogging.log_to }}
+  </div>
+    <div class="">
+    log_layer:
+    {{ welllogging.log_layer  }}
+    €
+  </div>
+  <div class="">
+    log_type:
+    {{ welllogging.log_type }}
+  </div>
+  <div class="">
+    data_source:
+    {{ welllogging.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ welllogging.other_source  }}
+
+  </div>
+      <div class="">
+    revision_inf:
+    {{ welllogging.revision_inf  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

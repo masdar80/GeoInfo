@@ -1,0 +1,71 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+  hco3_mg_l, co3_mg_l, o18_mg_l, h2_mg_l, he_mg_l, h3_mg_l, c14_mg_l, ra_mg_l, estemated_waterage, watersampling_id
+	FROM public.observe_hydrochemical;
+            <div class="col col-md-3">{{form.date|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.hard_total_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.hard_lime_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.hard_mag_mg_l|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+             <div class="col col-md-3">{{form.tds_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.ca_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.mg_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.na_mg_l|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.k_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.so4_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.free_cl_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.cl_mg_l|as_crispy_field}}</div>
+        </div>
+
+ <div class="row">
+
+            <div class="col col-md-3">{{form.hco3_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.co3_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.o18_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.h2_mg_l|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+
+            <div class="col col-md-3">{{form.he_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.h3_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.c14_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.ra_mg_l|as_crispy_field}}</div>
+        </div>
+<div class="row">
+
+            <div class="col col-md-6">{{form.estemated_waterage|as_crispy_field}}</div>
+        </div>
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'hydrochemical-list' watersampling_id=watersampling_id  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

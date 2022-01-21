@@ -1,0 +1,29 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="border p-2 m-2 col col-md-9">
+            <h1 text-bold class="text-center">Personal Profile</h1>
+            <br/>
+
+<div class="border p-2 m-2 ">
+  <div class="row">
+      <div class="col col-md-3">
+          <img src="{{user.profile.image.url}}" alt="default.jpg" width="100%">
+          <div class="btn btn-warning "><i class="fas fa-pen"></i>edit</div>
+      </div>
+    <div class="col col-md-9">
+        username:{{user.first_name}}-{{user.last_name}}
+        <div>email: {{user.email}}</div>
+  </div>
+   
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

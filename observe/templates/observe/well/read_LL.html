@@ -1,0 +1,79 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+   <div class="">
+    depth_from:
+    {{ lithologging.depth_from }}
+  </div>
+  <div class="">
+    depth_to:
+    {{ lithologging.depth_to }}
+  </div>
+    <div class="">
+    description:
+    {{ lithologging.description  }}
+    €
+  </div>
+  <div class="">
+    rock:
+    {{ lithologging.rock }}
+  </div>
+  <div class="">
+    code:
+    {{ lithologging.code }}
+  </div>
+    <div class="">
+    age1:
+    {{ lithologging.age1  }}
+
+  </div>
+     <div class="">
+    age2:
+    {{ lithologging.age2 }}
+  </div>
+    <div class="">
+    age3:
+    {{ lithologging.age3  }}
+    €
+  </div>
+
+  <div class="">
+    hydrocondition:
+    {{ lithologging.hydrocondition }}
+  </div>
+  <div class="">
+    hydromedia:
+    {{ lithologging.hydromedia }}
+  </div>
+    <div class="">
+    aquifertype:
+    {{ lithologging.aquifertype  }}
+
+  </div>
+      <div class="">
+    sgwl:
+    {{ lithologging.sgwl }}
+  </div>
+  <div class="">
+    data_source:
+    {{ lithologging.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ lithologging.other_source  }}
+
+  </div>
+      <div class="">
+    remarks:
+    {{ lithologging.remarks  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

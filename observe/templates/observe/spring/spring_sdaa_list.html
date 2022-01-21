@@ -1,0 +1,459 @@
+
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+{% block content %}
+ {% include 'observe/particial.html' %}
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="rdd-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var map_xy_spring = {{map_xy_spring|safe}};
+          console.log(map_xy_spring);
+               function our_layer(map,options){
+
+               var dataset = new L.GeoJSON(map_xy_spring,{
+ onEachFeature: function(feature,url){
+                   popupOptions = {maxWidth:250};
+                url.bindPopup("<b>ID Field: </b>" +feature.properties.pk.toString()
+<!--                +-->
+
+<!--                 "<br/><b>Sitename_a: </b>"+feature.properties.sitename_a.toString()+-->
+<!--                 "<br/><b>Village: </b>"+feature.properties.village.toString()+-->
+<!--                 "<br/><b>Nahia: </b>"+feature.properties.nahia.toString()+-->
+<!--                  "<br/><b>Montika: </b>"+feature.properties.montika.toString()+-->
+<!--                 "<br/><b>Mohafaza :</b>"+feature.properties.mohafaza.toString()-->
+                 ,popupOptions);
+    },
+               pointToLayer: function(feature, latlng){
+                var greenIcon = L.icon({
+                            iconUrl: "{% static 'observe/images/flower.png' %}",
+                            iconSize:     [35, 50], // size of the icon
+                            shadowSize:   [50, 64], // size of the shadow
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            shadowAnchor: [4, 62],  // the same for the shadow
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+                       return L.marker(latlng,{icon: greenIcon});
+               }
+               });
+                dataset.addTo(map);
+                      L.easyPrint({
+              sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+              filename: '{{xy_spring.id_field}}',
+              exportOnly: true,
+              hideControlContainer: true
+            }).addTo(map);
+
+               }
+
+</script>
+ <h3 class="text-center bg-warning p-2 mb-0">Spring Discharge Average Anuall For [ {{xy_spring.id_field}} ] in [ {{xy_spring.sitename_e}}]</h3>
+<div class="row">
+
+    <div class="col col-md-4">
+         {% leaflet_map "gis"  callback='window.our_layer'  %}
+
+    </div>
+    <div class="col col-md-4">
+
+
+        <div class="card mt-1">
+  <div class="card-header text-center">
+    Spring Information
+  </div>
+  <div class="card-body">
+
+    <p class="card-text">Surveyer Name: {{springinfnew.surveyer_name}}</p>
+      <p class="card-text">Surveyer Date: {{springinfnew.survey_date}}</p>
+      <p class="card-text">GPS Number: {{springinfnew.gps_number}}</p>
+      <p class="card-text">Water Use: {{springinfnew.water_use}}</p>
+
+      <p class="card-text">Present Spring Statuse: {{springinfnew.present_spring_statuse}}</p>
+
+      <p class="card-text">Spring OwnerShip: {{springinfnew.well_ownership}}</p>
+      <p class="card-text">Spring Owner Name: {{springinfnew.well_oner_name}}</p>
+      <p class="card-text">Opened Date: {{springinfnew.open_date}}</p>
+      <p class="card-text">Measurment Items: {{springinfnew.measurment_items}}</p>
+      <p class="card-text">Closed Date: {{springinfnew.closed_date}}</p>
+
+
+  </div>
+
+</div>
+    </div>
+     <div class="col col-md-4">
+
+
+        <div class="card mt-1">
+  <div class="card-header text-center">
+    Spring Information
+  </div>
+  <div class="card-body  mb-5">
+
+      <p class="card-text">Labo Qual Analysis Frequency: {{springinfnew.labo_qual_analysis_frequency}}</p>
+      <p class="card-text">Type Of Automatic Sensor: {{springinfnew.type_of_automatic_sensor}}</p>
+      <p class="card-text">Equipped With Stuff Gauge: {{springinfnew.equipped_with_stuff_gauge}}</p>
+      <p class="card-text">Field Measur Freq Dryseason: {{springinfnew.field_measur_freq_dryseason}}</p>
+
+       <p class="card-text">Measure Type Head: {{springinfnew.measure_type_head}}</p>
+      <p class="card-text">Measure Type Quality: {{springinfnew.measure_type_quality}}</p>
+      <p class="card-text">Aquifer Litho Code: {{springinfnew.aquifer_litho_code}}</p>
+      <p class="card-text">Condition Of Station: {{springinfnew.condition_of_station}}</p>
+      <p class="card-text">Improvement Point: {{springinfnew.improvement_point}}</p>
+  </div>
+
+</div>
+    </div>
+</div>
+<br/>
+    <div class="border border-primary mt-2 mb-2 p-2 " >
+<!-------------->
+<div id="accordion" class=" border-primary pb-2 mb-2 pt-2 mt-2 ">
+  <div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Spring Discharge Average Annually
+        </button>
+      </h5>
+    </div>
+<!---form -->
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+                    <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Filter Spring Discharge Average Annual
+                        </a>
+                        <input type="submit" class="btn btn-danger" form="id_query_form" formaction="{% url 'sdaa-export' id_field  %}" value="Export XLS">
+                       <input type="submit" class="btn btn-success" form="id_query_form" formaction="{% url 'sdaa-pdf' id_field  %}" value="Report SDAA">
+
+
+                                        <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#sdaa-exampleModal">
+                      Delete Filtered Readng
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="sdaa-exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are u sure to delete those Readings
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-danger" form="id_query_form" formaction="{% url 'delete-sdaa-all' id_field  %}" value="Delete">
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample">
+                        <hr>
+                        <p class="">Use this form to Filter Spring Discharge Average Annual Readings by different date</p>
+
+
+
+                            <form method="get" action="." id="id_query_form">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_clear_filters" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+</div> <div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;"> Spring Discharge Average Anually
+</h2>
+
+        <table id="sdaa" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+
+                     <th class="th-sm">obs_datetime
+                  </th>
+                    <th class="th-sm">avg_discharge
+                  </th>
+                    <th class="th-sm">max_discharge
+                  </th>
+
+                  <th class="th-sm">min_discharge
+                  </th>
+                   <th>show</th>
+
+                    <th class="th-sm">Edit
+                  </th>
+                    <th class="th-sm">Delete
+                  </th>
+            </tr>
+           </thead>
+          <tbody>
+        {% for springdischarge_avg_anual in springdischarge_avg_anuals_new.all %}
+            <tr>
+
+               <td>{{springdischarge_avg_anual.obs_datetime|date:'Y-m-d'}}</td>
+               <td>{{springdischarge_avg_anual.avg_discharge}}</td>
+               <td>{{springdischarge_avg_anual.max_discharge}}</td>
+
+               <td>{{springdischarge_avg_anual.min_discharge}}</td>
+
+
+              <td>
+          <button type="button" class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal2-{{id_field}}-{{springdischarge_avg_anual.pk}}">
+                                  <span class="fa fa-eye"></span>
+                                </button>
+        <div class="modal fade" id="myModal2-{{id_field}}-{{springdischarge_avg_anual.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">SDAA Details</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+                {% include 'observe/spring/read_SDAA.html'%}
+            </div>
+          </div>
+        </div>
+
+              </td>
+
+              <td>
+                      <a type="button" class="btn btn-sm btn-warning" href="{%url 'sdaa-form-update'  id_field springdischarge_avg_anual.pk %}">
+                                  <span class="fa fa-edit"></span>
+                       </a>
+
+              </td>
+              <td>
+                <button type="button" class="delete-rdd btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal-{{id_field}}-{{springdischarge_avg_anual.pk}}">
+                                  <span class="fa fa-trash"></span></button>
+
+                <div class="modal fade" id="myModal-{{id_field}}-{{springdischarge_avg_anual.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">Delete SDAA</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+                {% include 'observe/spring/delete_SDAA.html'%}
+            </div>
+          </div>
+        </div>
+
+            </td>
+
+            </tr>
+
+
+        {% empty %}
+        {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <tr>
+
+                <th>obs_datetime</th>
+                <th>avg_discharge</th>
+                <th>max_discharge</th>
+
+              <th>min_discharge</th>
+
+                <th>Show</th>
+                 <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </tfoot>
+        </table>
+
+
+</div>
+
+        <div class="row m-2 ">
+
+<div class="col col-md-6"> <a type="button" class=" btn  btn-warning btn-lg" href="{% url 'xy_springs'   %}">
+                          <i class="fa fa-backward"></i> Back To Springs Point</a></div>
+<div class="col col-md-6"> <a type="button" class="read-rdd btn  btn-primary btn-lg" href="{% url 'sdaa-form-insert' id_field  %}">
+                          <span class="fa fa-plus"></span> ADD New Reading</a></div>
+
+        </div>
+
+
+      <div class="row m-2 ">
+          <div class="col col-md-6">
+              <div class="card " style="color:white;">
+  <div class="card-header bg-primary" style="">
+      <h2>Other Related Table </h2>
+  </div>
+     <div class="list-group">
+
+                              <a href="{%url 'sdd-list' id_field %}" class="list-group-item  list-group-item-warning list-group-item-action">spring discharge daily</a>
+                              <a href="{%url 'sdm-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">spring discharge monthly</a>
+                              <a href="{%url 'sda-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">spring discharge anually</a>
+                              <a href="{%url 'sdaa-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">spring discharge average anually</a>
+                              <a href="{%url 'sdam-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">spring discharge average monthly</a>
+
+                </div>
+
+
+
+
+</div>
+      </div>
+
+  <div class="col col-md-6">
+
+</div>
+  </div>
+        <div class="row">
+
+            <div class="col col-md-12">
+
+                <div id="chart" class="border border-info p-2 m-2">
+
+                </div>
+
+                <script type="text/javascript" src="{% static 'js/highcharts.js' %}"></script>
+                <script type="text/javascript"  src="{% static 'js/exporting.js' %}"></script>
+                <script type="text/javascript" src="{% static 'js/offline-exporting.js'%}"></script>
+                <script type="text/javascript" src="{% static 'js/jspdf.min.js'%}"></script>
+                <script type="text/javascript">
+
+
+  Highcharts.chart('chart', {
+      chart: {
+          type: 'line'
+      },
+      title: {
+          text: 'Spring Discharge Average Annual between [{{ springdischarge_avg_anuals_new.first.obs_datetime }}]  and  [{{ springdischarge_avg_anuals_new.last.obs_datetime }}]'+
+           ' for [Point Symbol: {{ xy_spring.id_field}} ] '+
+
+            ' and  [Site Name is :{{ xy_spring.sitename_e}} ] '
+      },
+      xAxis: {
+          categories: [
+            {% for entry in springdischarge_avg_anuals_new.all %}'{{ entry.obs_datetime }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+          ]
+      },
+      series: [{
+          name: 'avg_discharge',
+          data: [
+            {% for entry1 in springdischarge_avg_anuals_new.all %}{{ entry1.avg_discharge }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'green'
+      },
+      {
+          name: 'max_discharge',
+          data: [
+            {% for entry2 in springdischarge_avg_anuals_new.all %}{{ entry2.max_discharge }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'red'
+      },
+      {
+          name: 'min_discharge',
+          data: [
+            {% for entry3 in springdischarge_avg_anuals_new.all %}{{ entry3.min_discharge }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'yellow'
+      },
+
+      ],
+
+  });
+</script>
+            </div>
+        </div>
+    </div>
+  </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+
+  <div class="">
+    cds_date:
+    {{ continious_dischage.cds_date }}
+  </div>
+
+   <div class="">
+    cds_accumulate:
+    {{ continious_dischage.cds_accumulate }}
+  </div>
+  <div class="">
+    cds_depth:
+    {{ continious_dischage.cds_depth  }}
+
+  </div>
+  <div class="">
+    cds_time:
+    {{ continious_dischage.cds_time  }}
+  </div>
+
+<div class="">
+    cds_drawdown:
+    {{ continious_dischage.cds_drawdown  }}
+  </div>
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

@@ -1,0 +1,61 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-3">{{form.date|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.bod_mg_l|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.do_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.ss|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+             <div class="col col-md-3">{{form.ph|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.ec|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.alkalinity|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.nh3_mg_l|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.nh4_mg_l|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.po4|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.oil|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.t_n|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.t_p|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.toc|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.si|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.h2s|as_crispy_field}}</div>
+        </div>
+<div class="row">
+
+            <div class="col col-md-6">{{form.remarks|as_crispy_field}}</div>
+        </div>
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'eutrophication2-list' watersampling_id=watersampling_id  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

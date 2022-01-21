@@ -1,0 +1,139 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+<script type="text/javascript">
+
+  window.addEventListener("map:init", function (e) {
+
+
+    var detail = e.originalEvent ?
+                 e.originalEvent.detail : e.detail;
+     var map = detail.map; // Get reference to map
+
+     let Position = L.Control.extend({
+        _container: null,
+        options: {
+          position: 'bottomleft'
+        },
+
+        onAdd: function (map) {
+          var latlng = L.DomUtil.create('div', 'mouseposition');
+          this._latlng = latlng;
+          return latlng;
+        },
+
+        updateHTML: function(lat, lng) {
+          var latlng = lat + " " + lng;
+          //this._latlng.innerHTML = "Latitude: " + lat + "   Longitiude: " + lng;
+          this._latlng.innerHTML = "LatLng: " + latlng;
+        }
+      });
+      this.position = new Position();
+      this.leafletMap.addControl(this.position);
+      this.leafletMap.addEventListener('mousemove', (event) => {
+    let lat = Math.round(event.latlng.lat * 100000) / 100000;
+    let lng = Math.round(event.latlng.lng * 100000) / 100000;
+    this.position.updateHTML(lat, lng);
+  }
+});
+
+
+  var markers = [];
+  var marker1;
+
+<!--  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);-->
+
+  {% if form.instance.pk %}
+
+  var myLatLng = L.LatLng(parseFloat("{{form.instance.geom.y}}"),parseFloat("{{form.instance.geom.x}}"));
+
+  marker=L.marker(myLatLng).addTo(map);
+  markers.push(marker);
+
+  {% endif %}
+  map.on('click',function(e){
+    DeleteMarkers();
+    var location = e.latLng;
+    console.log(location);
+
+    $('#id_lat').val(location.lat);
+    $('#id_lng').val(location.lng);
+    marker= L.marker(location).addTo(map);
+
+    markers.push(marker);
+  });
+
+  function DeleteMarkers() {
+      //Loop through all the markers and remove
+      for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+      }
+      markers = [];
+  };
+
+
+
+
+});
+</script>
+
+
+
+{% block content %}
+<div class="container">
+    <div class="border m-5 p-5 border-red">
+        <h2 p-2 m-2 class="text-center" >{% if form.instance.pk %} Update The Point {% else %} Add New Point  {% endif %}</h2>
+        <hr style="border-top: 1px solid red;">
+<form method="post">{% csrf_token %}
+  <div class="row">
+    <div class="col-md-4">
+      {{ form.waterfacilitypoint_id |as_crispy_field}}
+    </div>
+       <div class="col-md-4">
+      {{ form.city|as_crispy_field }}
+    </div>
+       <div class="col-md-4">
+      {{ form.gov|as_crispy_field }}
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="col-md-4">
+      {{ form.type |as_crispy_field}}
+    </div>
+       <div class="col-md-4">
+      {{ form.agency|as_crispy_field }}
+    </div>
+       <div class="col-md-4">
+      {{ form.town|as_crispy_field }}
+    </div>
+  </div>
+    <div class="row">
+
+    <div class="col-md-4">
+      {{ form.site|as_crispy_field}}
+    </div>
+       <div class="col-md-4">
+      {{ form.basin|as_crispy_field }}
+    </div>
+       <div class="col-md-4">
+      {{ form.village|as_crispy_field }}
+    </div>
+  </div>
+
+    {{form.geom}}
+  <div class="row">
+      <div class="col-lg-12">
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <input class="btn btn-primary pull-right" type="submit" value="{% if form.instance.pk %}Update {% else %}Save {% endif %}" />
+    </div>
+  </div>
+</form>
+    </div>
+</div>
+{% endblock %}

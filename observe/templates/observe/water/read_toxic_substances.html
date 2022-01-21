@@ -1,0 +1,75 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+
+
+  <div class="">
+    date:
+    {{ toxic_substances.date }}
+  </div>
+
+   <div class="">
+    phenol:
+    {{ toxic_substances.phenol }}
+  </div>
+  <div class="">
+    benzen:
+    {{ toxic_substances.benzen  }}
+
+  </div>
+  <div class="">
+    mbas:
+    {{ toxic_substances.mbas  }}
+  </div>
+
+<div class="">
+    f:
+    {{ toxic_substances.f  }}
+  </div>
+<div class="">
+    b:
+    {{ toxic_substances.b }}
+  </div>
+
+   <div class="">
+    bhc_a:
+    {{ toxic_substances.bhc_a }}
+  </div>
+           <div class="">
+    bhc_b:
+    {{ toxic_substances.bhc_b }}
+  </div>
+  <div class="">
+    abs:
+    {{ toxic_substances.abs  }}
+
+  </div>
+  <div class="">
+    aox:
+    {{ toxic_substances.aox  }}
+  </div>
+
+<div class="">
+    pcb:
+    {{ toxic_substances.pcb  }}
+  </div>
+<div class="">
+    dioxin:
+    {{ toxic_substances.dioxin }}
+  </div>
+
+   <div class="">
+    chlorodan_a:
+    {{ toxic_substances.chlorodan_a }}
+  </div>
+
+
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

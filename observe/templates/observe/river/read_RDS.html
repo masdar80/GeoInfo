@@ -1,0 +1,37 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    year:
+    {{ discharge_survey.year }}
+  </div>
+  <div class="">
+    type_of_regression:
+    {{ discharge_survey.type_of_regression }}
+  </div>
+  <div class="">data_limit_up
+    data_limit_low:
+    {{ discharge_survey.data_limit_low  }}
+    €
+  </div>
+   <div class="">
+    data_limit_up:
+    {{ discharge_survey.data_limit_up  }}
+    €
+  </div>
+
+  <div class="">
+    formula:
+    {{ discharge_survey.formula  }}
+  </div>
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

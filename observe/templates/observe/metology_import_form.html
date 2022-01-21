@@ -1,0 +1,225 @@
+{% extends 'observe/base.html'%}
+{%load static%}
+{%load leaflet_tags%}
+{% leaflet_js%}
+{% leaflet_css%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% include 'observe/particial.html'%}
+
+<div class="row">
+
+
+    <div class="col col-md-5">
+
+        <!--        <a class="btn btn-primary" href="{% url 'import'%}">import data</a>-->
+
+        <div class="card ">
+            <p class="card-header  text-center p-3" style="background-color:yellow;"><strong >Importing Readings Related by Deffirent points</strong>
+                 </p>
+            <div class="card-body">
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>precipitation_monthly:</strong>
+                        <a class="btn btn-warning"
+                       href="http://wric.local/admin/observe/precipitation_monthly/">precipitation_monthly</a>
+                    </p>
+                </div>
+
+
+                 <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                     <p class="card-text"><strong>precipitation_annual: </strong><a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/precipitation_annual/">precipitation_annual</a>
+                    </p>
+                </div>
+
+
+                  <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>precipitation_daily :</strong> <a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/precipitation_daily/">precipitation_daily</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>temperature_monthly  :</strong> <a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/temperature_monthly/">temperature_monthly</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>temperature_daily  :</strong> <a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/temperature_daily/">temperature_daily</a>
+                    </p>
+                </div>
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>humidity_daily : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/humidity_daily/">humidity_daily</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>humidity_monthly :</strong> <a class="btn btn-warning"
+                       href="http://wric.local/admin/observe/humidity_monthly/">humidity_monthly</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>wind_monthly : </strong><a class="btn btn-warning"
+                   href="http://wric.local/admin/observe/wind_monthly/">wind_monthly</a></p>
+                </div>
+
+               <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                   <p class="card-text"><strong>wind_daily : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/wind_daily/">wind_daily</a>
+                    </p>
+               </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>airpressure : </strong><a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/airpressure/">airpressure</a>
+                    </p>
+                </div>
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>snowfall_daily : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/snowfall/">snowfall_daily</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>snowdepth_daily : </strong><a class="btn btn-warning"
+                  href="http://wric.local/admin/observe/snowdepth/">snowdepth_daily</a>
+                </p>
+                </div>
+
+
+
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>Evaporation_daily :</strong>
+                        <a class="btn btn-warning"
+                    href="http://wric.local/admin/observe/evaporation_daily/">Evaporation_daily</a>
+                    </p>
+                </div>
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <div class="card-text"><strong>Evaporation_monthly :</strong></div>
+                    <div><a class="btn btn-warning" href="http://wric.local/admin/observe/evaporation_monthly/"
+                    >Evaporation_monthly</a>
+                    </div>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <div class="card-text"><strong>sunshine_daily :</strong></div>
+                    <div><a class="btn btn-warning" href="http://wric.local/admin/observe/sunshine_daily/"
+                    >sunshine_daily</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col col-md-7">
+        <div class="col col-md-12">
+            <script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
+
+            <script type="text/javascript">
+          var map_XY_Metologys = {{map_XY_Metologys|safe}};
+           function getmetologyfunction(id_field){
+                  if(id_field.includes('BA'))
+                  {return 'red';}
+                  else if(id_field.includes('CB'))
+                  {return 'green';}
+                  else if(id_field.includes('DK'))
+                  {return 'blue';}
+                  else if(id_field.includes('EU'))
+                  {return 'orange';}
+                  else if(id_field.includes('OR'))
+                  {return 'pink';}
+                  else if(id_field.includes('ST'))
+                  {return 'yellow';}
+                  else
+                  {return 'black';}
+
+           }
+     function our_layer(map,options){
+
+               var datasets = new L.GeoJSON(map_XY_Metologys,
+                {
+                 pointToLayer: function (feature, latlng) {
+                 var geojsonMarkerOptions = {
+                radius: 5,
+                fillColor: getmetologyfunction(feature.properties.pk),
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+
+                    },
+                     onEachFeature: function(feature,url){
+                    popupOptions = {maxWidth:250};
+                    url.bindPopup("<b>ID Field:</b>" +feature.properties.pk.toString()
+<!--                    +-->
+<!--                     "<br/><b>Montika:</b>"+feature.properties.montika.toString()+-->
+<!--                     "<br/><b>mohafaza:</b>"+feature.properties.mohafaza.toString()+-->
+<!--                     "<br/><b>nahia:</b>"+feature.properties.nahia.toString()+-->
+<!--                     "<br/><b>village:</b>"+feature.properties.village.toString()+-->
+<!--                      "<br/><b>sub_baisn:</b>"+feature.properties.sub_baisn.toString()-->
+                     ,popupOptions);
+       }
+    },
+
+
+    );
+      datasets.addTo(map);
+      var legend = L.control({position:'bottomright'});
+      legend.onAdd = function(map){
+      var div = L.DomUtil.create('div','legend');
+     var label = ["Metologys with chart BA" ,"Metologys with chart CB","Metologys with chart DK" ,
+      "Metologys with chart EU","Metologys with chart OR" ,"Metologys with chart ST","Metologys with chart YK"];
+      var grades = ['BA','CB','DK','EU','OR','ST','other'];
+      div.innerHTML = '<div><b>legend</b></div>';
+      for(i=0 ;i<grades.length;i++)
+      {
+      div.innerHTML+= '<i style="background:'+getspringfunction(grades[i])+'">&nbsp;&nbsp;</i>&nbsp;&nbsp;'+label[i]+'</br>';
+
+      }
+      return div;
+      }
+      legend.addTo(map);
+               }
+
+
+
+            </script>
+            <div style="background-color:#ecba43;">
+                <h2 class="p-2 mb-0 mt-1" style="display:inline-block;">Metology Points Map</h2>
+
+            </div>
+            {% leaflet_map "gis" callback='window.our_layer' %}
+        </div>
+    </div>
+
+</div>
+<br/>
+
+{% endblock content%}

@@ -1,0 +1,63 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+
+  <div class="">
+    date:
+    {{ fieldparameter.date }}
+  </div>
+
+   <div class="">
+    temperature_c:
+    {{ fieldparameter.temperature_c }}
+  </div>
+  <div class="">
+    do_mg_l:
+    {{ fieldparameter.do_mg_l  }}
+
+  </div>
+  <div class="">
+    ph:
+    {{ fieldparameter.ph  }}
+  </div>
+
+<div class="">
+    do_per_cent:
+    {{ fieldparameter.do_per_cent  }}
+  </div>
+           <div class="">
+    cond_ms_cm:
+    {{ fieldparameter.cond_ms_cm  }}
+  </div>
+           <div class="">
+    turbidity_ntu:
+    {{ fieldparameter.turbidity_ntu  }}
+  </div>
+           <div class="">
+    smell:
+    {{ fieldparameter.smell  }}
+  </div>
+           <div class="">
+    color:
+    {{ fieldparameter.color  }}
+  </div>
+           <div class="">
+    turbidity_ntu:
+    {{ fieldparameter.taste  }}
+  </div>
+           <div class="">
+    smell:
+    {{ fieldparameter.flow_rate  }}
+  </div>
+           <div class="">
+    color:
+    {{ fieldparameter.redox  }}
+  </div>
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

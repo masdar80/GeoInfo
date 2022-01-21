@@ -1,0 +1,50 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_datetime:
+    {{ wind_daily.obs_datetime }}
+  </div>
+  <div class="">
+    daily_avg:
+    {{ wind_daily.daily_avg }}
+  </div>
+    <div class="">
+    daily_max:
+    {{ wind_daily.daily_max  }}
+    €
+  </div>
+
+<div class="">
+    daily_min:
+    {{ wind_daily.daily_min }}
+  </div>
+      <div class="">
+    meas_method:
+    {{ wind_daily.meas_method  }}
+    €
+  </div>
+  <div class="">
+
+    data_source:
+    {{ wind_daily.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ wind_daily.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ wind_daily.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

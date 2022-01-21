@@ -1,0 +1,56 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ riverflowmeasure.obs_datetime }}
+  </div>
+  <div class="">
+    station_area:
+    {{ riverflowmeasure.station_area }}
+  </div>
+    <div class="">
+    calculated_flow_velocity:
+    {{ riverflowmeasure.calculated_flow_velocity  }}
+
+  </div>
+    <div class="">
+    section_id:
+    {{ riverflowmeasure.section_id }}
+  </div>
+<div class="">
+    avg_flow_velocity:
+    {{ riverflowmeasure.avg_flow_velocity }}
+  </div>
+  <div class="">
+    meas_method:
+    {{ riverflowmeasure.meas_method }}
+  </div>
+    <div class="">
+    equipment_spec:
+    {{ riverflowmeasure.equipment_spec  }}
+
+  </div>
+  <div class="">
+    data_source:
+    {{ riverflowmeasure.data_source }}
+  </div>
+  <div class="">
+    other_source:
+    {{ riverflowmeasure.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ riverflowmeasure.remarks  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

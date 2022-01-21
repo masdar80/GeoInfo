@@ -1,0 +1,26 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ riverdischarge_anual.obs_datetime }}
+  </div>
+  <div class="">
+    anual_discharge:
+    {{ riverdischarge_anual.anual_discharge }}
+  </div>
+    <div class="">
+    remarks:
+    {{ riverdischarge_anual.remarks  }}
+    €
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

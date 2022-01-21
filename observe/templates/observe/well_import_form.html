@@ -1,0 +1,199 @@
+{% extends 'observe/base.html'%}
+{%load static%}
+{%load leaflet_tags%}
+{% leaflet_js%}
+{% leaflet_css%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% include 'observe/particial.html'%}
+
+<div class="row">
+
+
+    <div class="col col-md-5">
+
+        <!--        <a class="btn btn-primary" href="{% url 'import'%}">import data</a>-->
+
+        <div class="card ">
+            <p class="card-header  text-center p-3" style="background-color:yellow;"><strong >Importing Readings Related by Deffirent well points</strong>
+                 </p>
+            <div class="card-body">
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                     <p class="card-text"><strong>groundwaterlevel_manual:</strong><a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/groundwaterlevel_manual/">groundwaterlevel_manual</a>
+                    </p>
+                </div>
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>groundwaterlevel:</strong>
+                        <a class="btn btn-warning"
+                       href="http://wric.local/admin/observe/groundwaterlevel/">groundwaterlevel</a>
+                    </p>
+                </div>
+
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>auto_groundwater  :</strong> <a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/auto_groundwater/">auto_groundwater</a>
+                    </p>
+                </div>
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>welllogging : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/welllogging/">welllogging</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>lithologging :</strong> <a class="btn btn-warning"
+                       href="http://wric.local/admin/observe/lithologging/">lithologging</a>
+                    </p>
+                </div>
+                 <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>wells_quality :</strong> <a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/wells_quality/">wells_quality</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:7px;">
+                    <p class="card-text"><strong>welltoplevel  :</strong> <a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/welltoplevel/">welltoplevel</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>loggingdata : </strong><a class="btn btn-warning"
+                   href="http://wric.local/admin/observe/loggingdata/">loggingdata</a></p>
+                </div>
+
+               <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                   <p class="card-text"><strong>log_plot : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/log_plot/">log_plot</a>
+                    </p>
+               </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>drilling : </strong><a class="btn btn-warning"
+                      href="http://wric.local/admin/observe/drilling/">drilling</a>
+                    </p>
+                </div>
+
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>casing : </strong><a class="btn btn-warning"
+                     href="http://wric.local/admin/observe/casing/">casing</a>
+                    </p>
+                </div>
+
+
+                <div class="row" style="background-color:#eee; margin:2px;padding:6px;">
+                    <p class="card-text"><strong>packing : </strong><a class="btn btn-warning"
+                  href="http://wric.local/admin/observe/packing/">packing</a>
+                </p>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col col-md-7">
+        <div class="col col-md-12">
+            <script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
+
+            <script type="text/javascript">
+          var map_XY_Wells = {{map_XY_Wells|safe}};
+           function getspringfunction(id_field){
+                  if(id_field.includes('BA'))
+                  {return 'red';}
+                  else if(id_field.includes('CB'))
+                  {return 'green';}
+                  else if(id_field.includes('DK'))
+                  {return 'blue';}
+                  else if(id_field.includes('EU'))
+                  {return 'orange';}
+                  else if(id_field.includes('OR'))
+                  {return 'pink';}
+                  else if(id_field.includes('ST'))
+                  {return 'yellow';}
+                  else
+                  {return 'black';}
+
+           }
+     function our_layer(map,options){
+
+               var datasets = new L.GeoJSON(map_XY_Wells,
+                {
+                 pointToLayer: function (feature, latlng) {
+                 var geojsonMarkerOptions = {
+                radius: 5,
+                fillColor: getspringfunction(feature.properties.pk),
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+
+                    },
+                     onEachFeature: function(feature,url){
+                    popupOptions = {maxWidth:250};
+                    url.bindPopup("<b>ID Field:</b>" +feature.properties.pk.toString()
+<!--                    +-->
+<!--                     "<br/><b>Montika:</b>"+feature.properties.montika.toString()+-->
+<!--                     "<br/><b>mohafaza:</b>"+feature.properties.mohafaza.toString()+-->
+<!--                     "<br/><b>nahia:</b>"+feature.properties.nahia.toString()+-->
+<!--                     "<br/><b>village:</b>"+feature.properties.village.toString()+-->
+<!--                      "<br/><b>sub_baisn:</b>"+feature.properties.sub_baisn.toString()-->
+                     ,popupOptions);
+       }
+    },
+
+
+    );
+      datasets.addTo(map);
+      var legend = L.control({position:'bottomright'});
+      legend.onAdd = function(map){
+      var div = L.DomUtil.create('div','legend');
+     var label = ["Metologys with chart BA" ,"Metologys with chart CB","Metologys with chart DK" ,
+      "Metologys with chart EU","Metologys with chart OR" ,"Metologys with chart ST","Metologys with chart YK"];
+      var grades = ['BA','CB','DK','EU','OR','ST','other'];
+      div.innerHTML = '<div><b>legend</b></div>';
+      for(i=0 ;i<grades.length;i++)
+      {
+      div.innerHTML+= '<i style="background:'+getspringfunction(grades[i])+'">&nbsp;&nbsp;</i>&nbsp;&nbsp;'+label[i]+'</br>';
+
+      }
+      return div;
+      }
+      legend.addTo(map);
+               }
+
+
+
+            </script>
+            <div style="background-color:#ecba43;">
+                <h2 class="p-2 mb-0 mt-1" style="display:inline-block;">Well Points Map</h2>
+
+            </div>
+            {% leaflet_map "gis" callback='window.our_layer' %}
+        </div>
+    </div>
+
+</div>
+<br/>
+
+{% endblock content%}

@@ -1,0 +1,44 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    year:
+    {{ precipitation_daily.year }}
+  </div>
+  <div class="">
+    prcp_mm:
+    {{ precipitation_daily.prcp_mm }}
+  </div>
+    <div class="">
+    monthly_precipitation:
+    {{ precipitation_daily.monthly_precipitation  }}
+
+  </div>
+
+<div class="">
+    meas_method:
+    {{ precipitation_daily.meas_method }}
+  </div>
+  <div class="">
+    data_source:
+    {{ precipitation_daily.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ precipitation_daily.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ precipitation_daily.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

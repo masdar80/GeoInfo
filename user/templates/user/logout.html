@@ -1,0 +1,31 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="border p-2 m-2 col col-md-9">
+            <h1 text-bold class="text-center">Log out</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+
+
+<div class="row">
+    <div class="col col-md-8">
+        <h3>u are logedout u can log in again from here</h3>
+        <a  class="btn btn-warning btn-lg " href="{%url 'login'%}"><i class="fas fa-sign-in-alt"></i> login</a>
+    </div>
+
+</div>
+
+
+
+
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

@@ -1,0 +1,27 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_datetime:
+    {{ wind_monthly.obs_datetime }}
+  </div>
+  <div class="">
+    avg_monthly_wind_from_hour:
+    {{ wind_monthly.avg_monthly_wind_from_hour }}
+  </div>
+    <div class="">
+    remarks:
+    {{ wind_monthly.remarks  }}
+    €
+  </div>
+
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

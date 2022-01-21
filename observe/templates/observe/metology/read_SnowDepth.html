@@ -1,0 +1,40 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_date:
+    {{ snowdepth.obs_datetime }}
+  </div>
+  <div class="">
+    evap_mm:
+    {{ snowdepth.dailysnowdepth }}
+  </div>
+      <div class="">
+    meas_method:
+    {{ snowdepth.meas_method }}
+  </div>
+  <div class="">
+    data_source:
+    {{ snowdepth.data_source }}
+  </div>
+
+  <div class="">
+    other_source:
+    {{ snowdepth.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ snowdepth.remarks  }}
+    €
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

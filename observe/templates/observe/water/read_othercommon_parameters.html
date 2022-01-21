@@ -1,0 +1,48 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+
+
+  <div class="">
+    date:
+    {{ othercommon_parameters.date }}
+  </div>
+
+   <div class="">
+    tss_mg_l:
+    {{ othercommon_parameters.tss_mg_l }}
+  </div>
+  <div class="">
+    p_mg_l:
+    {{ othercommon_parameters.p_mg_l  }}
+
+  </div>
+  <div class="">
+    s_mg_l:
+    {{ othercommon_parameters.s_mg_l  }}
+  </div>
+
+<div class="">
+    u_mg_l:
+    {{ othercommon_parameters.u_mg_l  }}
+  </div>
+<div class="">
+    sr_mg_l:
+    {{ othercommon_parameters.sr_mg_l }}
+  </div>
+
+   <div class="">
+    co_mg_l:
+    {{ othercommon_parameters.co_mg_l }}
+  </div>
+
+
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

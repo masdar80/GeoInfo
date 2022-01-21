@@ -1,0 +1,43 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+
+    sdd_datetime:
+    {{ step_drawdown.sdd_datetime }}
+  </div>
+  <div class="">
+    sdd_accumulatetime:
+    {{ step_drawdown.sdd_accumulatetime }}
+  </div>
+
+   <div class="">
+    sdd_accumulatetime:
+    {{ step_drawdown.sdd_accumulatetime }}
+  </div>
+  <div class="">
+    sdd_discharge:
+    {{ step_drawdown.sdd_discharge  }}
+
+  </div>
+  <div class="">
+    sdd_waterdepth:
+    {{ step_drawdown.sdd_waterdepth  }}
+  </div>
+ <div class="">
+    sdd_waterdepth:
+    {{ step_drawdown.sdd_waterdepth  }}
+
+  </div>
+  <div class="">
+    sdd_drawdown:
+    {{ step_drawdown.sdd_drawdown  }}
+  </div>
+</div>
+'
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

@@ -1,0 +1,32 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    pumptest_interval_from:
+    {{ pumptest_pumpwell.pumptest_interval_from }}
+  </div>
+  <div class="">
+    pumptest_interval_to:
+    {{ pumptest_pumpwell.pumptest_interval_to }}
+  </div>
+
+   <div class="">
+    pumptest_swl:
+    {{ pumptest_pumpwell.pumptest_swl }}
+  </div>
+  <div class="">
+    pmp_discharge:
+    {{ pumptest_pumpwell.pumptest_diameter  }}
+
+  </div>
+
+
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

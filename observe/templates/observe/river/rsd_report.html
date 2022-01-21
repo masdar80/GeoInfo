@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <title>Water Resource Information System</title>
+
+
+    <style type="text/css">
+    body{
+ font-family: "Roboto", sans-serif;
+}
+ @font-face {
+            font-family: Roboto;
+            src: "D:/project/wric/wricsite/static/fonts/Roboto-Regular.ttf";
+        }
+
+        @font-face {
+            font-family: Roboto;
+            src: "D:/project/wric/wricsite/static/fonts/Roboto-Bold.ttf";
+            font-weight: bold;
+        }
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border:1px solid black;
+
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .list-group {
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width = 50%;
+
+
+        }
+
+        .list-group p {
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+
+        }
+        .card-header img{
+        align-content:fluid-right;
+         width = 50%;
+         }
+         .table img{
+         width:100px;
+         height:100px;
+         }
+         .grid-container {
+  display: grid;
+  grid-template-columns: auto auto ;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  text-align: center;
+
+}
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="container">
+    <table class="table" style="border:1px solid black;font-family: Noto Naskh Arabic">
+               <div >
+                   <p class="text-center " style="color:blue; ">River Section Data Report between <strong class="float-right" style="float:right">({{ sectiondatas_new.first.sec_datetime  }}     {{ sectiondatas_new.last.sec_datetime }})</strong></p>
+                   <h2 class="text-center " style=" color:blue;">Date:   {{ today | date:"d/m/Y" }}</h2>
+                <img src="{{xy_metology.image.url}}" alt="default.jpg"   style="display:inline_block; width:800px; height:350px;border:1px solid red;"  >
+                   </div>
+               <h2 class="text-center main" style="margin-top:50px;">Main Information about River Point {{xy_river.id_field}}:</h2>
+            <thead >
+
+            <tr style="">
+
+                <th>Sitename_e</th>
+                <th>type</th>
+                <th>Point</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>{{ xy_metology.sitename_e }}</td>
+                    <td>{{ xy_metology.type }}</td>
+                    <td>{{ xy_metology.geom }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+       <table class="table strip" style="border:1px solid black;">
+               <div >
+                    <h2 class="bg-yellow" style="margin-top:50px; color:#17a2b8;"> Statistics Result for River Section Data Readings: </h2>
+
+                </div>
+
+            <thead >
+
+            <tr style="">
+
+                <th>Mean</th>
+
+                <th>min</th>
+                <th>max</th>
+                 <th>median</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>{{mean_x}}</td>
+
+                    <td>{{min_x }}</td>
+                    <td>{{ max_x }}</td>
+                     <td>{{ median_x }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <table class="table">
+            <h2 class="text-center " style="margin-top:50px; color:#6610f2;">data between [{{ sectiondatas_new.first.sec_datetime }}]  and  [{{ sectiondatas_new.last.sec_datetime }}]:</h2>
+            <thead>
+
+            <tr>
+                <th>sec_datetime</th>
+                <th>sas_area</th>
+<!--                <th>daily_max</th>-->
+<!--                <th>daily_min</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            {% for sectiondata in sectiondatas_new.all %}
+                <tr>
+                    <td>{{ sectiondata.sec_datetime | date:"d/m/Y" }}</td>
+                    <td>{{ sectiondata.sec_x }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+  <div id="chart_container" style="width:100%; height:400px;"></div>
+
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ precipitation_monthly.obs_datetime }}
+  </div>
+  <div class="">
+    monthly_precipitation:
+    {{ precipitation_monthly.monthly_precipitaion }}
+  </div>
+  <div class="">
+    meas_method:
+    {{ precipitation_monthly.meas_method  }}
+
+  </div>
+
+  <div class="">
+    data_source:
+    {{ precipitation_monthly.data_source  }}
+  </div>
+     <div class="">
+    calculated_value:
+    {{ precipitation_monthly.calculated_value  }}
+  </div>
+         <div class="">
+    other_source:
+    {{ precipitation_monthly.other_source  }}
+  </div>
+
+  <div class="">
+    remarks:
+    {{ precipitation_monthly.remarks  }}
+  </div>
+
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

@@ -1,0 +1,42 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+   <div class="">
+    drilling_from:
+    {{ drilling.drilling_from }}
+  </div>
+  <div class="">
+    drilling_to:
+    {{ drilling.drilling_to }}
+  </div>
+    <div class="">
+    drilling_diameter:
+    {{ drilling.drilling_diameter  }}
+    €
+  </div>
+  <div class="">
+    drilling_layer:
+    {{ drilling.drilling_layer }}
+  </div>
+  <div class="">
+    data_source:
+    {{ drilling.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ drilling.other_source  }}
+
+  </div>
+      <div class="">
+    remarks:
+    {{ drilling.remarks  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

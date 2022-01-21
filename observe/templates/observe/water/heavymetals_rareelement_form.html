@@ -1,0 +1,67 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-3">{{form.date|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Cd|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.Pb|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Cu|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+             <div class="col col-md-3">{{form.Cr|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Ni|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.Mn|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Fe|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.Al|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Zn|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.AS|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Be|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.cn|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Li|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.Hg|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Mo|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3">{{form.Se|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.Ba|as_crispy_field}}</div>
+             <div class="col col-md-3">{{form.Ag|as_crispy_field}}</div>
+            <div class="col col-md-3">{{form.units|as_crispy_field}}</div>
+        </div>
+<div class="row">
+
+            <div class="col col-md-6">{{form.remarks|as_crispy_field}}</div>
+        </div>
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'heavymetals-rareelement-list' watersampling_id=watersampling_id  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

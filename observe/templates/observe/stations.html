@@ -1,0 +1,144 @@
+
+{% extends 'observe/base.html'%}
+{%load static%}
+
+{%load leaflet_tags%}
+{% leaflet_js%}
+{% leaflet_css%}
+{% block content %}
+
+
+<!--{% if messages %}-->
+<!--{% for message in messages %}-->
+<!--<div class="alert alert-{{message.tags}}">{{message}}</div>-->
+<!--{%endfor%}-->
+<!--{%endif%}-->
+<div class="row">
+      <div class="col col-md-12">
+    <script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
+    <script type="text/javascript">
+          var map_xy_stations = {{map_xy_stations|safe}};
+
+     function our_layer(map,options){
+ var dataset = new L.GeoJSON(map_xy_stations,{
+             onEachFeature: function(feature,url){
+                    popupOptions = {maxWidth:250};
+                    url.bindPopup(
+                     "<br/><b>mohafaza: </b>"+feature.properties.mohafaza.toString()+
+                     "<br/><b>montika :</b>"+feature.properties.montika.toString()
+                     ,popupOptions);
+
+    },
+               pointToLayer: function(feature, latlng){
+
+                var greenIcon = L.icon({
+                            iconUrl: '/static/leaflet/images/station.png/',
+                            iconSize:     [35, 50], // size of the icon
+                            shadowSize:   [50, 64], // size of the shadow
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            shadowAnchor: [4, 62],  // the same for the shadow
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+                       return L.marker(latlng,{icon: greenIcon});
+               }
+               });
+                dataset.addTo(map);
+               }
+           </script>
+           <div style="background-color:#ecba43;">
+              <h2  class="p-2 mb-0 mt-1" style="display:inline-block;">Water Chemistry Stations Map</h2>
+              <a class="btn btn-outline-success float-right p-2 mb-0 mt-2 mr-2" href="{% url 'waterstation-create'%}" style="fluid:right"> Add New station</a>
+          </div>
+ {% leaflet_map "gis"  callback='window.our_layer'  %}
+      </div>
+</div>
+
+<div class="row">
+    <div class="col col-md-12">
+
+        <div class="all-data border mt-3 mb-3 p-3">
+           <table id="stations" class="table table-striped table-bordered" >
+                <thead>
+                    <tr>
+
+                        <th>id</th>
+                         <th>english_name</th>
+                        <th>mohafaza</th>
+                         <th>montika</th>
+                         <th>Related Table</th>
+                        <th>Edit Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+ {% for xy_station in xy_stations %}
+<tr>
+                        <td>{{xy_station.pk}}</td>
+                        <td>{{xy_station.english_name}}</td>
+                        <td>{{xy_station.mohafaza}}</td>
+                        <td>{{xy_station.montika}}</td>
+
+                        <td>
+                           <a class="btn btn-outline-warning p-2" href="{% url 'watersample-list' xy_station.pk %}"> <i class="far fa-eye bg-success fa-2x"> </i> Water Samples </a>
+<!--                          <button type="button" class="btn btn-outline-warning"  data-toggle="modal" data-target="#station-{{ xy_station.pk }}">-->
+<!--                                                  <i class="far fa-eye bg-success fa-2x"> </i> Show Other Related Tables-->
+<!--                                                </button>-->
+<!--                          <div class="modal fade" id="station-{{ xy_station.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<!--                          <div class="modal-dialog">-->
+<!--                            <div class="modal-content">-->
+<!--                                <div style="background-color:goldenrod; ">-->
+<!--                              <div class="modal-header ">-->
+<!--                            <h3 class="modal-title ">Other Related Table {{xy_station.id_field}}</h3>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                              <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                          </div>-->
+<!--                            </div>-->
+<!--                                <form method="post"  action="">-->
+<!--                          {% csrf_token %}-->
+<!--                       <div class="modal-body">-->
+
+
+<!--                </div>-->
+
+<!--                          <div class="modal-footer">-->
+<!--                              <button type="button" class="btn btn-success btn-lg " data-dismiss="modal">Close</button>-->
+<!--                          </div>-->
+
+<!--                   </form>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          </div>-->
+
+                        </td>
+    <td>
+         <a class="btn btn-info btn-lg" href="{% url 'waterstation-update' xy_station.pk %}"><i class="fas fa-pen"></i> </a>
+         <a class="btn btn-danger btn-lg" href="{% url 'waterstation-delete' xy_station.pk %}"><i class="fas fa-trash"></i> </a>
+    </td>
+
+
+</tr>
+ {% endfor %}
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                       <th>id</th>
+                         <th>english_name</th>
+                        <th>mohafaza</th>
+                         <th>montika</th>
+                         <th>Related Table</th>
+                        <th>Edit Delete</th>
+
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock content%}

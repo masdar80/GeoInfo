@@ -1,0 +1,77 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Update Spring Informations</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-6">{{form.surveyer_name|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.survey_date|as_crispy_field}}</div>
+
+        </div>
+
+        <div class="row">
+            <div class="col col-md-6">{{form.gps_number|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.water_use|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.open_date|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.close_date|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+
+            <div class="col col-md-6">{{form.present_spring_statuse|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.spring_ownership|as_crispy_field}}</div>
+        </div>
+         <div class="row">
+            <div class="col col-md-6">{{form.measurment_items|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.labo_qual_analysis_frequency|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+
+            <div class="col col-md-6">{{form.type_of_automatic_sensor|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.equipped_with_stuff_gauge|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.field_measur_freq_dryseason|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.field_measur_freq_rainyseason|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.measure_type_head|as_crispy_field}}</div>
+        </div>
+         <div class="row">
+
+            <div class="col col-md-6">{{form.measure_type_quality|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.aquifer_litho_code|as_crispy_field}}</div>
+        </div>
+         <div class="row">
+
+            <div class="col col-md-6">{{form.condition_of_station|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.improvement_point|as_crispy_field}}</div>
+        </div>
+
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'xy_springs'  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}

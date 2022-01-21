@@ -1,0 +1,58 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    obs_date:
+
+    {{ humidity_daily.obs_date }}
+  </div>
+  <div class="">
+    daily_avg:
+    {{ humidity_daily.daily_avg }}
+  </div>
+  <div class="">
+    daily_max:
+    {{ humidity_daily.daily_max  }}
+
+  </div>
+<div class="">
+    daily_min:
+    {{ humidity_daily.daily_min }}
+  </div>
+  <div class="">
+    max_Time:
+    {{ humidity_daily.max_time  }}
+
+  </div>
+         <div class="">
+    min_time:
+    {{ humidity_daily.min_time  }}
+
+  </div>
+  <div class="">
+    meas_method:
+    {{ humidity_daily.meas_method  }}
+  </div>
+  <div class="">
+    data_source:
+    {{ humidity_daily.data_source  }}
+  </div>
+    <div class="">
+    other_source:
+    {{ humidity_daily.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ humidity_daily.remarks}}
+  </div>
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

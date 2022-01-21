@@ -1,0 +1,45 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    meas_date:
+    {{ welltoplevel.meas_date }}
+  </div>
+  <div class="">
+    ground_level:
+    {{ welltoplevel.ground_level }}
+  </div>
+  <div class="">
+    top_concrete:
+    {{ welltoplevel.top_concrete  }}
+    €
+  </div>
+  <div class="">
+    top_casing:
+    {{ welltoplevel.top_casing  }}
+  </div>
+  <div class="">
+    source:
+    {{ welltoplevel.source  }}
+  </div>
+  <div class="">
+    method:
+    {{ welltoplevel.method  }}
+  </div>
+    <div class="">
+    accuracy:
+    {{ welltoplevel.accuracy }}
+  </div>
+    <div class="">
+    convert_g_sys:
+    {{ welltoplevel.convert_g_sys}}
+  </div>
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

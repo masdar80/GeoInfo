@@ -1,0 +1,47 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ wells_quality.obs_datetime }}
+  </div>
+  <div class="">
+    ph:
+    {{ wells_quality.ph }}
+  </div>
+         <div class="">
+    ec_ms_m:
+    {{ wells_quality.ec_ms_m }}
+  </div>
+  <div class="">
+    temp:
+    {{ wells_quality.temp  }}
+
+  </div>
+
+  <div class="">
+    meas_method:
+    {{ wells_quality.meas_method  }}
+  </div>
+  <div class="">
+    data_source:
+    {{ wells_quality.data_source  }}
+  </div>
+    <div class="">
+    other_source:
+    {{ wells_quality.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ wells_quality.remarks}}
+  </div>
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

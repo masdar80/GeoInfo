@@ -1,0 +1,51 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ springdischarge_daily.obs_datetime }}
+  </div>
+  <div class="">
+    stage_m:
+    {{ springdischarge_daily.stage_m }}
+  </div>
+  <div class="">
+    rc_id:
+    {{ springdischarge_daily.rc_id  }}
+    €
+  </div>
+   <div class="">
+    discharge_m3_sec:
+    {{ springdischarge_daily.discharge_m3_sec  }}
+    €
+  </div>
+
+  <div class="">
+    meas_method:
+    {{ springdischarge_daily.meas_method  }}
+  </div>
+<div class="">
+    data_source:
+    {{ springdischarge_daily.data_source  }}
+
+  </div>
+   <div class="">
+    other_source:
+    {{ springdischarge_daily.other_source  }}
+    €
+  </div>
+
+  <div class="">
+    remarks:
+    {{ springdischarge_daily.remarks  }}
+  </div>
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

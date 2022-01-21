@@ -1,0 +1,52 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ surface_hq.obs_datetime }}
+  </div>
+  <div class="">
+    h:
+    {{ surface_hq.h }}
+  </div>
+  <div class="">
+    q:
+    {{ surface_hq.q  }}
+
+  </div>
+
+  <div class="">
+    section_width_m:
+    {{ surface_hq.section_width_m  }}
+  </div>
+     <div class="">
+    section_area_m2:
+    {{ surface_hq.section_area_m2  }}
+  </div>
+         <div class="">
+    section_depth_m:
+    {{ surface_hq.section_depth_m  }}
+  </div>
+
+  <div class="">
+    velocity_m_s:
+    {{ surface_hq.velocity_m_s  }}
+  </div>
+    <div class="">
+    meas_method:
+    {{ surface_hq.meas_method }}
+  </div>
+    <div class="">
+    remarks:
+    {{ surface_hq.remarks}}
+  </div>
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

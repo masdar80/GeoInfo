@@ -1,0 +1,36 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    month:
+    {{ springdischarge_avg_monthly.month }}
+  </div>
+  <div class="">
+    avg_discharge:
+    {{ springdischarge_avg_monthly.avg_discharge }}
+  </div>
+    <div class="">
+    max_discharge:
+    {{ springdischarge_avg_monthly.max_discharge  }}
+
+  </div>
+    <div class="">
+    min_discharge:
+    {{ springdischarge_avg_monthly.min_discharge }}
+  </div>
+
+    <div class="">
+    remarks:
+    {{ springdischarge_avg_monthly.remarks  }}
+
+  </div>
+
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

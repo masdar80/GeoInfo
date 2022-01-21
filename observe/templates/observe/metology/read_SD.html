@@ -1,0 +1,65 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    datetime:
+    {{ sunshine_daily.obs_date }}
+  </div>
+  <div class="">
+    rad_mj_m2:
+    {{ sunshine_daily.rad_mj_m2 }}
+  </div>
+    <div class="">
+    rad_max_w_m2:
+    {{ sunshine_daily.rad_max_w_m2  }}
+    €
+  </div>
+
+<div class="">
+    max_time:
+    {{ sunshine_daily.max_time }}
+  </div>
+      <div class="">
+    duration_hr:
+    {{ sunshine_daily.duration_hr }}
+  </div>
+    <div class="">
+    meas_method:
+    {{ sunshine_daily.meas_method  }}
+    €
+  </div>
+      <div class="">
+    rad_avg_w_m2:
+    {{ sunshine_daily.rad_avg_w_m2  }}
+    €
+  </div>
+       <div class="">
+    rad_min_w_m2:
+    {{ sunshine_daily.rad_min_w_m2  }}
+    €
+  </div>
+
+  <div class="">
+    data_source:
+    {{ sunshine_daily.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ sunshine_daily.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ sunshine_daily.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

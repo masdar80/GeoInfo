@@ -1,0 +1,50 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    obs_datetime:
+    {{ airpressure.obs_datetime }}
+  </div>
+  <div class="">
+    daily_avg:
+    {{ airpressure.daily_avg }}
+  </div>
+    <div class="">
+    daily_max:
+    {{ airpressure.daily_max  }}
+    €
+  </div>
+
+<div class="">
+    daily_min:
+    {{ airpressure.daily_min }}
+  </div>
+  <div class="">
+    meas_method:
+    {{ airpressure.meas_method }}
+  </div>
+      <div class="">
+    data_source:
+    {{ airpressure.data_source  }}
+    €
+  </div>
+    <div class="">
+    other_source:
+    {{ airpressure.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ airpressure.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

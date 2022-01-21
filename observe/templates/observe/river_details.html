@@ -1,0 +1,1167 @@
+
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+{% block content %}
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="rdd-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var map_xy_river = {{map_xy_river|safe}};
+          console.log(map_xy_river);
+               function our_layer(map,options){
+               var dataset = new L.GeoJSON(map_xy_river,{});
+                dataset.addTo(map);
+               }
+
+</script>
+ <h3 class="text-center bg-warning p-2 mb-0">River Point details</h3>
+<div class="row">
+
+    <div class="col col-md-6">
+         {% leaflet_map "gis"  callback='window.our_layer'  %}
+
+    </div>
+    <div class="col col-md-6">
+
+<!--        <a class="btn btn-primary" href="{% url 'import'%}">import data</a>-->
+
+        <div class="card mt-1">
+  <div class="card-header text-center">
+    River Information
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">Surveyer Name: {{xy_river.river_inf.surveyer_name}}</p>
+      <p class="card-text">Surveyer Date: {{xy_river.river_inf.survey_date}}</p>
+      <p class="card-text">GPS Number: {{xy_river.river_inf.gps_number}}</p>
+      <p class="card-text">Water Use: {{xy_river.river_inf.water_use}}</p>
+
+      <p class="card-text">Open Date: {{xy_river.river_inf.open_date}}</p>
+
+      <p class="card-text">Close Date: {{xy_river.river_inf.close_date}}</p>
+      <p class="card-text">Analysis Frequency: {{xy_river.river_inf.labo_qual_analysis_frequency}}</p>
+      <p class="card-text">Type Of Automatic Sensor: {{xy_river.river_inf.type_of_automatic_sensor}}</p>
+      <p class="card-text">Station Condition: {{xy_river.river_inf.station_condition}}</p>
+      <p class="card-text">Freq Dryseason: {{xy_river.river_inf.field_measur_freq_dryseason}}</p>
+    <a href="#" class="btn btn-primary text-center mb-20 mt-10">see more</a>
+  </div>
+
+</div>
+    </div>
+</div>
+<br/>
+    <div class="border border-primary mt-2 mb-2 p-2 " >
+<!-------------->
+<div id="accordion" class=" border-primary pb-2 mb-2 pt-2 mt-2 ">
+  <div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          River Discharge Dailly
+        </button>
+      </h5>
+    </div>
+<!---form -->
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+                    <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="{% url 'waterpoints_csv' %}">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Filter River Points
+                        </a>
+                        <input type="submit" class="btn btn-info" form="id_query_form" formaction="{% url 'waterpoints_csv' %}" value="Export CSV">
+                        <input type="submit" class="btn btn-default" form="id_query_form" formaction="{% url 'waterpoints_xls' %}" value="Export XLS">
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample">
+                        <hr>
+                        <p class="">Use this form to filter river points by different date</p>
+
+
+
+                            <form method="get" action="." id="id_query_form">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_clear_filters" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+</div> <div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">River Discharge Dailly</h2>
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+                 <th class="th-sm">obs_datetime
+              </th>
+                <th class="th-sm">stage_m
+              </th>
+                <th class="th-sm">rc_id
+              </th>
+
+              <th class="th-sm">discharge_m3_sec
+              </th>
+               <th>show</th>
+<!--              <th class="th-sm">meas_method-->
+<!--              </th>-->
+<!--              <th class="th-sm">data_source-->
+<!--              </th>-->
+<!--              <th class="th-sm">other_source-->
+<!--              </th>-->
+<!--              <th class="th-sm">remarks-->
+<!--              </th>-->
+                <th class="th-sm">Edit
+              </th>
+                <th class="th-sm">Delete
+              </th>
+            </tr>
+           </thead>
+          <tbody>
+        {% for riverdischarge_daily in riverdischarge_dailys_new.all %}
+            <tr>
+            <td>{{riverdischarge_daily.obs_datetime}}</td>
+             <td>{{riverdischarge_daily.stage_m}}</td>
+            <td>{{riverdischarge_daily.rc_id}}</td>
+
+          <td>{{riverdischarge_daily.discharge_m3_sec}}</td>
+<!--          <td>{{riverdischarge_daily.meas_method}}</td>-->
+<!--               <td>{{riverdischarge_daily.data_source}}</td>-->
+<!--                 <td>{{riverdischarge_daily.other_source}}</td>-->
+<!--                <td>{{riverdischarge_daily.remarks}}</td>-->
+
+      <td> <button type="button" class="read-rdd btn btn-sm btn-primary" data-id="{% url 'read_rdd' riverdischarge_daily.pk %}">
+                          <span class="fa fa-eye"></span>
+                        </button>
+
+
+      </td>
+
+      <td><button type="button" class="update-rdd btn btn-sm btn-warning" data-id="{% url 'update_rdd' riverdischarge_daily.pk %}">
+                          <span class="fa fa-edit"></span>
+                        </button>
+<!--       <script type="text/javascript">-->
+<!--            $(function () {-->
+<!--             $(".update-rdd").each(function () {-->
+<!--        $(this).modalForm({formURL:"{% url 'update_rdd' riverdischarge_daily.pk %}",modalID: "#modal"});-->
+<!--            });-->
+<!--            });-->
+<!--   </script>-->
+      </td>
+
+      <td><button type="button" class="delete-rdd btn btn-sm btn-danger" data-id="{% url 'delete_rdd' riverdischarge_daily.pk %}">
+                          <span class="fa fa-trash"></span>
+                        </button></td>
+
+        </tr>
+
+
+        {% empty %}
+        {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <tr>
+                <th>obs_datetime</th>
+                <th>stage_m</th>
+                <th>rc_id</th>
+
+              <th>discharge_m3_sec</th>
+<!--              <th>meas_method</th>-->
+<!--              <th>data_source</th>-->
+<!--              <th>other_source</th>-->
+<!--              <th>remarks</th>-->
+                <th>Show</th>
+                 <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </tfoot>
+        </table>
+
+
+</div>
+
+
+<!-- Create book button -->
+<button class="show-form btn btn-primary" type="button" name="button">Create Book</button>
+        <div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{riverdischarge_dailyform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+  </div>
+    </div>
+  </div>
+    </div>
+
+  <div class="card  border-warning mt-3 mb-3 p-3" >
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0 text-center">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         River discharge monthly
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <div class="border m-3 p-3">
+ <h2 class="text-center p-2" style="background-color:#83ccf4;">River Discharge Monthly</h2>
+            <table id="example1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">obs_datetime
+      </th>
+      <th class="th-sm">monthly_avg_discharge
+      </th>
+      <th class="th-sm">monthly_total_discharge
+      </th>
+      <th class="th-sm">meas_method
+      </th>
+      <th class="th-sm">data_source
+      </th>
+      <th class="th-sm">other_source
+      </th>
+      <th class="th-sm">remarks
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+{% for riverdischarge_monthly in riverdischarge_monthlys_new.all %}
+    <tr>
+         <td>{{riverdischarge_monthly.obs_datetime}}</td>
+         <td>{{riverdischarge_monthly.monthly_avg_discharge}}</td>
+         <td>{{riverdischarge_monthly.monthly_total_discharge}}</td>
+         <td>{{riverdischarge_monthly.meas_method}}</td>
+         <td>{{riverdischarge_monthly.data_source}}</td>
+         <td>{{riverdischarge_monthly.other_source}}</td>
+
+         <td>{{riverdischarge_monthly.remarks}}</td>
+
+    </tr>
+{% empty %}
+{% endfor %}
+
+  </tbody>
+  <tfoot>
+    <tr>
+     <th>obs_datetime</th>
+      <th>monthly_avg_discharge</th>
+      <th>monthly_total_discharge</th>
+      <th>meas_method</th>
+      <th>data_source</th>
+      <th>other_source</th>
+
+      <th>remarks</th>
+    </tr>
+  </tfoot>
+</table>
+</div>
+<div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{riverdischarge_monthlyform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+  </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="heading3">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+          River Discharge Anually
+        </button>
+      </h5>
+    </div>
+      <div id="collapse3" class="collapse show" aria-labelledby="heading3" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+        <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="{% url 'waterpoints_csv' %}">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                            Filter reading River Discharge Anually
+                        </a>
+                        <input type="submit" class="btn btn-info" form="id_query_date_form" formaction="{% url 'waterpoints_csv' %}" value="Export CSV">
+                        <input type="submit" class="btn btn-default" form="id_query_date_form" formaction="{% url 'waterpoints_xls' %}" value="Export XLS">
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample3">
+                        <hr>
+                        <p class="">Use this form to filter River Discharge Anually reading by different Dates</p>
+
+
+
+                            <form method="get" action="." id="id_query_date_form2">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_query_date_form" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+    </div>
+<div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">River Discharge Anually</h2>
+        <table id="example3" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+obs_datetime','anual_discharge','remarks'
+                 <th class="th-sm">obs_datetime
+              </th>
+              <th class="th-sm">anual_discharge
+              </th>
+
+              <th class="th-sm">remarks
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+        {% for riverdischarge_anual in riverdischarge_anuals_new.all %}
+
+            <tr>
+                <td>{{riverdischarge_anual.obs_datetime}}</td>
+                <td>{{riverdischarge_anual.anual_discharge}}</td>
+                <td>{{riverdischarge_anual.remarks}}</td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+
+          </tbody>
+          <tfoot>
+            <tr>
+                <th>obs_datetime</th>
+              <th>anual_discharge</th>
+              <th>remarks</th>
+            </tr>
+          </tfoot>
+        </table>
+</div>
+
+<div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{riverdischarge_anualform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+</div>
+    </div>
+  </div>
+    </div>
+
+<div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="heading4">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+         River Flow Measure
+        </button>
+      </h5>
+    </div>
+<!---form -->
+      <div id="collapse4" class="collapse show" aria-labelledby="heading4" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+        <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="{% url 'waterpoints_csv' %}">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+                         River Flow Measure
+                        </a>
+                        <input type="submit" class="btn btn-info" form="id_query_date_form" formaction="{% url 'waterpoints_csv' %}" value="Export CSV">
+                        <input type="submit" class="btn btn-default" form="id_query_date_form" formaction="{% url 'waterpoints_xls' %}" value="Export XLS">
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample4">
+                        <hr>Well Top Level
+                        <p class="">Use this form to filter River Flow Measure reading for River point  by different Dates</p>
+
+
+
+                            <form method="get" action="." id="id_query_date_form1">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_query_date_form3" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+    </div>
+<div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">Well Top Level</h2>
+        <table id="example4" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+
+            <tr>
+                 <th class="th-sm">obs_datetime
+              </th>
+              <th class="th-sm">station_area
+              </th>
+              <th class="th-sm">calculated_flow_velocity
+              </th>
+              <th class="th-sm">section_id
+              </th>
+              <th class="th-sm">meas_method
+              </th>
+              <th class="th-sm">equipment_spec
+              </th>
+              <th class="th-sm">data_source
+              </th>
+              <th class="th-sm">other_source
+              </th>
+              <th class="th-sm">remarks
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+        {% for riverflowmeasure in riverflowmeasures_new.all %}
+            <tr>
+                <td>{{riverflowmeasure.obs_datetime}}</td>
+                <td>{{riverflowmeasure.station_area}}</td>
+                <td>{{riverflowmeasure.calculated_flow_velocity}}</td>
+                <td>{{riverflowmeasure.section_id}}</td>
+                <td>{{riverflowmeasure.meas_method}}</td>
+                <td>{{riverflowmeasure.equipment_spec}}</td>
+                <td>{{riverflowmeasure.data_source}}</td>
+                <td>{{riverflowmeasure.other_source}}</td>
+                <td>{{riverflowmeasure.remarks}}</td>
+
+            </tr>
+        {% empty %}
+        {% endfor %}
+
+          </tbody>
+          <tfoot>
+'obs_datetime', 'station_area', 'calculated_flow_velocity','section_id', 'meas_method', 'equipment_spec','data_source',
+                      'other_source', 'remarks'
+            <tr>
+                <th>obs_datetime</th>
+              <th>station_area</th>
+              <th>calculated_flow_velocity</th>
+              <th>section_id</th>
+              <th>meas_method</th>
+              <th>equipment_spec</th>
+              <th>data_source</th>
+              <th>other_source</th>
+              <th>remarks</th>
+
+            </tr>
+          </tfoot>
+        </table>
+</div>
+
+<div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading for River Flow Measure</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{riverflowmeasureform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+</div>
+    </div>
+  </div>
+    </div>
+<div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="heading5">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+         Discharge Survey
+
+        </button>
+      </h5>
+    </div>
+<!---form -->
+      <div id="collapse5" class="collapse show" aria-labelledby="heading5" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+        <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="{% url 'waterpoints_csv' %}">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5">
+                            Auto Grand Water
+                        </a>
+                        <input type="submit" class="btn btn-info" form="id_query_date_form" formaction="{% url 'waterpoints_csv' %}" value="Export CSV">
+                        <input type="submit" class="btn btn-default" form="id_query_date_form" formaction="{% url 'waterpoints_xls' %}" value="Export XLS">
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample5">
+                        <hr>
+                        <p class="">Use this form to filter Discharge survey reading for River Point by different Dates</p>
+
+
+
+                            <form method="get" action="." id="id_query_date_forms">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_query_date_form5" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+    </div>
+<div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">Discharge Survey</h2>
+        <table id="example5" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+
+                 <th class="th-sm">year
+              </th>
+              <th class="th-sm">type_of_regression
+              </th>
+              <th class="th-sm">data_limit_low
+              </th>
+              <th class="th-sm">formula
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+        {% for discharge_survey in discharge_surveys_new.all %}
+            <tr>
+                <td>{{discharge_survey.year}}</td>
+                <td>{{discharge_survey.type_of_regression}}</td>
+                <td>{{discharge_survey.data_limit_low}}</td>
+                <td>{{discharge_survey.formula}}</td>
+
+            </tr>
+        {% empty %}
+        {% endfor %}
+
+          </tbody>
+          <tfoot>
+
+            <tr>
+              <th>year</th>
+              <th>type_of_regression</th>
+              <th>data_limit_low</th>
+              <th>formula</th>
+
+            </tr>
+          </tfoot>
+        </table>
+</div>
+
+<div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading for Discharge survey river point</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{discharge_surveyform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+</div>
+    </div>
+  </div>
+    </div>
+<div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="heading6">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+          Surface HQ
+
+        </button>
+      </h5>
+    </div>
+<!---form -->
+      <div id="collapse6" class="collapse show" aria-labelledby="heading6" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+        <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="{% url 'waterpoints_csv' %}">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample6" aria-expanded="false" aria-controls="collapseExample6">
+                            Filter Surface HQ
+                        </a>
+                        <input type="submit" class="btn btn-info" form="id_query_form" formaction="{% url 'waterpoints_csv' %}" value="Export CSV">
+                        <input type="submit" class="btn btn-default" form="id_query_form" formaction="{% url 'waterpoints_xls' %}" value="Export XLS">
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample6">
+                        <hr>
+                        <p class="">Use this form to filter Surface HQ for river point by different Dates</p>
+
+
+
+                            <form method="get" action="." id="id_query_form6">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_clear_filters1" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+    </div>
+<div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;">Surface HQ</h2>
+        <table id="example6" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+
+                 <th class="th-sm">obs_datetime
+              </th>
+              <th class="th-sm">h
+              </th>
+
+              <th class="th-sm">q
+              </th>
+              <th class="th-sm">section_width_m
+              </th>
+              <th class="th-sm">section_depth_m
+              </th>
+              <th class="th-sm">section_area_m2
+              </th>
+
+              <th class="th-sm">velocity_m_s
+              </th>
+                <th class="th-sm">meas_method
+              </th>
+
+              <th class="th-sm">remarks
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+        {% for surface_hq in surface_hqs_new.all %}
+            <tr>
+                <td>{{surface_hq.obs_datetime}}</td>
+                <td>{{surface_hq.h}}</td>
+                <td>{{surface_hq.q}}</td>
+                <td>{{surface_hq.section_width_m}}</td>
+                <td>{{surface_hq.section_depth_m}}</td>
+                <td>{{surface_hq.section_area_m2}}</td>
+                <td>{{surface_hq.velocity_m_s}}</td>
+                 <td>{{surface_hq.meas_method}}</td>
+                <td>{{surface_hq.remarks}}</td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>obs_datetime</th>
+              <th>h</th>
+              <th>q</th>
+              <th>section_width_m</th>
+              <th>section_depth_m</th>
+              <th>section_area_m2</th>
+              <th>velocity_m_s</th>
+                 <th>meas_method</th>
+              <th>remarks</th>
+            </tr>
+          </tfoot>
+        </table>
+</div>
+
+<div class="row">
+  <div class="col col-md-6">
+        <div class="card m-3" >
+          <div class="card-body">
+            <h2 class="card-title">Adding  New Reading</h2>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <form action="." method="POST">
+            {%csrf_token%}
+
+            {{surface_hqform|crispy }}
+            <input  type="submit"class="btn btn-success p-2 m-2" value="save"/>
+           </form>
+
+          </div>
+
+        </div>
+        </div>
+
+  <div class="col col-md-6">
+    <p>importing to database</p>
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="importData">
+    <p>Please select format of file.</p>
+    <select name="file-format" class="form-control my-3">
+        <option selected>Choose format...</option>
+        <option>CSV</option>
+        <option>JSON</option>
+      </select>
+    <button class="btn btn-primary" type="submit">Import</button>
+  </form>
+</div>
+</div>
+    </div>
+  </div>
+    </div>
+</div>
+    </div>
+<!--{% block extrascripts %}-->
+
+<!-- <script type="text/javascript">-->
+<!--    $(function() {-->
+
+<!--      // Create book button-->
+<!--      $(".create-rdd").modalForm({formURL: "{% url 'create_rdd' %}", modalID: "#create-modal"});-->
+
+<!--      // Update book buttons-->
+<!--      $(".update-rdd").each(function () {-->
+<!--&lt;!&ndash;        console.log($(this).data('id'));&ndash;&gt;-->
+<!--        $(this).modalForm({formURL:$(this).data('id'),modalID:"#edit-modal"});-->
+<!--      });-->
+
+<!--      // Read book buttons-->
+<!--      $(".read-rdd").each(function () {-->
+<!--        $(this).modalForm({formURL: $(this).data('id')});-->
+<!--      });-->
+
+<!--      // Delete book buttons-->
+<!--      $(".delete-rdd").each(function () {-->
+<!--        $(this).modalForm({formURL: $(this).data('id')});-->
+<!--      });-->
+
+<!--      // Hide message-->
+<!--      $(".alert").fadeTo(2000, 500).slideUp(500, function(){-->
+<!--        $(".alert").slideUp(500);-->
+<!--      });-->
+
+<!--    });-->
+<!--  </script>-->
+<!--{% endblock extrascripts %}-->
+{% endblock content %}

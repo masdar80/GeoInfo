@@ -1,0 +1,490 @@
+
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+{% block content %}
+{% include 'observe/particial.html'%}
+
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="rdd-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var map_xy_well = {{map_xy_well|safe}};
+          console.log(map_xy_well);
+               function our_layer(map,options){
+
+               var dataset = new L.GeoJSON(map_xy_well,{
+ onEachFeature: function(feature,url){
+                  popupOptions = {maxWidth:250};
+                    url.bindPopup("<b>ID Field: </b>" +feature.properties.pk.toString()
+<!--                    +-->
+
+<!--                     "<br/><b>Sitename_a: </b>"+feature.properties.sitename_a.toString()+-->
+<!--                     "<br/><b>Village: </b>"+feature.properties.village.toString()+-->
+<!--                     "<br/><b>Nahia: </b>"+feature.properties.nahia.toString()+-->
+<!--                      "<br/><b>Montika: </b>"+feature.properties.montika.toString()+-->
+<!--                     "<br/><b>Mohafaza :</b>"+feature.properties.mohafaza.toString()-->
+                     ,popupOptions);
+    },
+               pointToLayer: function(feature, latlng){
+                var greenIcon = L.icon({
+
+                             iconUrl: "{% static 'observe/images/well.png' %}",
+                            iconSize:     [35, 50], // size of the icon
+                            shadowSize:   [50, 64], // size of the shadow
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            shadowAnchor: [4, 62],  // the same for the shadow
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+                       return L.marker(latlng,{icon: greenIcon});
+               }
+               });
+                dataset.addTo(map);
+                 L.easyPrint({
+              sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+              filename: '{{xy_well.id_field}}',
+              exportOnly: true,
+              hideControlContainer: true
+            }).addTo(map);
+
+               }
+
+</script>
+ <h3 class="text-center bg-warning p-2 mb-0"> Auto Ground Water For [ {{xy_well.id_field}} ] in [ {{xy_well.sitename_e}}]</h3>
+<div class="row">
+
+    <div class="col col-md-4">
+         {% leaflet_map "gis"  callback='window.our_layer'  %}
+
+    </div>
+    <div class="col col-md-4">
+
+<!--        <a class="btn btn-primary" href="{% url 'import'%}">import data</a>-->
+
+        <div class="card mt-1">
+  <div class="card-header text-center">
+    Well Information
+  </div>
+  <div class="card-body">
+
+    <p class="card-text">Surveyer Name: {{xy_well.well_inf.surveyer_name}}</p>
+      <p class="card-text">Surveyer Date: {{xy_well.well_inf.survey_date}}</p>
+      <p class="card-text">GPS Number: {{xy_well.well_inf.gps_number}}</p>
+      <p class="card-text">Well Completion Date: {{xy_well.well_inf.well_completion_date}}</p>
+      <p class="card-text">Water Use: {{xy_well.well_inf.water_use}}</p>
+      <p class="card-text">Open Date: {{xy_well.well_inf.open_date}}</p>
+      <p class="card-text">Close Date: {{xy_well.well_inf.close_date}}</p>
+       <p class="card-text">Atitude Of Top Of Well: {{xy_well.well_inf.atitude_of_top_of_well}}</p>
+      <p class="card-text">Total Depth: {{xy_well.well_inf.total_depth}}</p>
+      <p class="card-text">Well Ownership: {{xy_well.well_inf.well_ownership}}</p>
+      <p class="card-text">Well Owner Name: {{xy_well.well_inf.well_oner_name}}</p>
+      <p class="card-text">Water Use: {{xy_well.well_inf.water_use}}</p>
+
+
+
+  </div>
+
+</div>
+    </div>
+     <div class="col col-md-4">
+
+<!--        <a class="btn btn-primary" href="{% url 'import'%}">import data</a>-->
+
+        <div class="card mt-1">
+  <div class="card-header text-center">
+    Well Information
+  </div>
+  <div class="card-body">
+
+
+      <p class="card-text">Dia Top Casing: {{xy_well.well_inf.dia_top_casing}}</p>
+      <p class="card-text">Min Dia Casing: {{xy_well.well_inf.min_dia_casing}}</p>
+      <p class="card-text">Pump Installed In The Well: {{xy_well.well_inf.pump_installed_in_the_well}}</p>
+      <p class="card-text">Measurment Items: {{xy_well.well_inf.measurment_items}}</p>
+      <p class="card-text">Gw Meas Freq Dryseason: {{xy_well.well_inf.gw_meas_freq_dryseason}}</p>
+      <p class="card-text">Gw Meas Freq Rainyseason: {{xy_well.well_inf.gw_meas_freq_rainyseason}}</p>
+       <p class="card-text">Labo Qual Analysis Freq Drysea: {{xy_well.well_inf.labo_qual_analysis_freq_drysea}}</p>
+      <p class="card-text">Labo Qual Analysis Freq Rainysea: {{xy_well.well_inf.labo_qual_analysis_freq_rainysea}}</p>
+      <p class="card-text">Type Of Measurment: {{xy_well.well_inf.type_of_measurment}}</p>
+      <p class="card-text">Type Of Automatic Sensor: {{xy_well.well_inf.type_of_automatic_sensor}}</p>
+      <p class="card-text">Sensor Depth: {{xy_well.well_inf.sensor_depth}}</p>
+      <p class="card-text">Condition Of Station: {{xy_well.well_inf.condition_of_station}}</p>
+       <p class="card-text">Improvement Point: {{xy_well.well_inf.improvement_point}}</p>
+  </div>
+
+</div>
+    </div>
+</div>
+<br/>
+    <div class="border border-primary mt-2 mb-2 p-2 " >
+<!-------------->
+<div id="accordion" class=" border-primary pb-2 mb-2 pt-2 mt-2 ">
+  <div class="card border-warning mt-3 mb-3 p-3">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0 text-center bold" >
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Auto Grand Water
+        </button>
+      </h5>
+    </div>
+<!---form -->
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+     <div class="row">
+    <div class="col col-md-12">
+
+                    <div class="card border mt-3 mb-3 p-3" style="width: auto;">
+            <div class="card-body">
+
+                <h3>
+
+                    <form action="">
+
+
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Filter Well Points
+                        </a>
+                        <input type="submit" class="btn btn-danger" form="id_query_form" formaction="{% url 'agw-export' id_field  %}" value="Export XLS">
+                       <input type="submit" class="btn btn-success" form="id_query_form" formaction="{% url 'agw-depth-pdf'  id_field %}" value="Report AGW Depth">
+                       <input type="submit" class="btn btn-warning" form="id_query_form" formaction="{% url 'agw-level-pdf'  id_field %}" value="Report AGW Level">
+     <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#agw-exampleModal">
+                          Delete Filtered Readng
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="agw-exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are u sure to delete those Readings
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-danger" form="id_query_form" formaction="{% url 'delete-agw-all' id_field  %}" value="Delete">
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                    </form>
+                </h3>
+
+
+                    <div class="collapse" id="collapseExample">
+                        <hr>
+                        <p class="">Use this form to filter well points by different date</p>
+
+
+
+                            <form method="get" action="." id="id_query_form">
+
+                                 <p>
+                                   {{ form_date.obs_datetime_before }}
+                                 </p>
+  <p>
+                                   {{ form_date.obs_datetime_after}}
+                                 </p>
+                                <p>
+                                    <input class="btn btn-success" type="submit"/>
+                                    <button type="reset" class="btn btn-info" value="Reset filters">Reset filters</button>
+                                    <button type="reset" class="btn btn-warning" id="id_clear_filters" onclick="return resetForm(this.form);">Clear Filters</button>
+                                </p>
+
+                            </form>
+
+                            <script>
+                                function resetForm(form) {
+                                    // clearing inputs
+                                    var inputs = form.getElementsByTagName('input');
+                                    for (var i = 0; i<inputs.length; i++) {
+                                        switch (inputs[i].type) {
+                                            // case 'hidden':
+                                            case 'text':
+                                                inputs[i].value = '';
+                                                break;
+                                            case 'radio':
+                                            case 'checkbox':
+                                                inputs[i].checked = false;
+                                        }
+                                    }
+
+                                    // clearing selects
+                                    var selects = form.getElementsByTagName('select');
+                                    for (var i = 0; i<selects.length; i++)
+                                        selects[i].selectedIndex = 0;
+
+                                    // clearing textarea
+                                    var text= form.getElementsByTagName('textarea');
+                                    for (var i = 0; i<text.length; i++)
+                                        text[i].innerHTML= '';
+
+                                    return false;
+                                }
+                            </script>
+
+
+
+                    </div>
+
+                </div>
+    </div>
+          </div>
+
+</div> <div class="card-body">
+        <div class="border m-3 p-3">
+      <h2 class="text-center p-2" style="background-color:#83ccf4;"> Grand Water</h2>
+
+        <table id="agw" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+                     <th class="th-sm">obs_date
+                  </th>
+                    <th class="th-sm">depth_m
+                  </th>
+                    <th class="th-sm">gw_level_m
+                  </th>
+
+                   <th>show</th>
+
+                    <th class="th-sm">Edit
+                  </th>
+                    <th class="th-sm">Delete
+                  </th>
+            </tr>
+           </thead>
+          <tbody>
+        {% for auto_groundwater in auto_groundwaters_new.all %}
+            <tr>
+               <td>{{auto_groundwater.obs_date|date:'Y-m-d'}}</td>
+               <td>{{auto_groundwater.depth_m}}</td>
+               <td>{{auto_groundwater.gw_level_m}}</td>
+
+
+
+              <td>
+          <button type="button" class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal1-{{id_field}}-{{auto_groundwater.pk}}">
+                                  <span class="fa fa-eye"></span>
+                                </button>
+        <div class="modal fade" id="myModal1-{{id_field}}-{{auto_groundwater.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">AGW Details</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+                {% include 'observe/well/read_AGW.html'%}
+            </div>
+          </div>
+        </div>
+
+              </td>
+
+              <td>
+                      <a type="button" class="btn btn-sm btn-warning" href="{%url 'agw-form-update'  id_field auto_groundwater.pk %}">
+                                  <span class="fa fa-edit"></span>
+                       </a>
+
+              </td>
+              <td>
+                <button type="button" class="delete-rdd btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal-{{id_field}}-{{auto_groundwater.pk}}">
+                                  <span class="fa fa-trash"></span></button>
+
+                <div class="modal fade" id="myModal-{{id_field}}-{{auto_groundwater.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            <h3 class="modal-title">Delete AGW</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+                {% include 'observe/well/delete_AGW.html'%}
+            </div>
+          </div>
+        </div>
+
+            </td>
+
+            </tr>
+
+
+        {% empty %}
+        {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <tr>
+
+                <th>obs_date</th>
+                <th>depth_m</th>
+                <th>gw_level_m</th>
+                <th>Show</th>
+                 <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </tfoot>
+        </table>
+
+
+</div>
+
+
+        <div class="row m-2 ">
+
+<div class="col col-md-6"> <a type="button" class=" btn  btn-warning btn-lg" href="{% url 'xy_wells'   %}">
+                          <i class="fa fa-backward"></i> Back To Well Point</a></div>
+<div class="col col-md-6"> <a type="button" class="read-rdd btn  btn-primary btn-lg" href="{% url 'agw-form-insert' id_field  %}">
+                          <span class="fa fa-plus"></span> ADD New Reading</a></div>
+
+        </div>
+
+
+      <div class="row m-2 ">
+         <div class="col col-md-6">
+        <div class="card " style="color:white;">
+  <div class="card-header bg-primary" style="">
+      <h2>Other Related Table </h2>
+  </div>
+     <div class="list-group">
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+              <a href="{%url 'wtl-list' id_field %}" class="list-group-item  list-group-item-warning list-group-item-action">well top level</a>
+         </div>
+        <div class="col col-md-6 pl-0">
+              <a href="{%url 'wq-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Wells Quality</a>
+         </div>
+         </div>
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+              <a href="{%url 'gwlm-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Ground Water Level Manual</a>
+         </div>
+         <div class="col col-md-6 pl-0">
+          <a href="{%url 'gwl-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Grand Water Level</a>
+         </div>
+         </div>
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+          <a href="{%url 'casing-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Casing</a>
+         </div>
+         <div class="col col-md-6 pl-0">
+          <a href="{%url 'drill-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Drilling</a>
+            </div>
+         </div>
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+          <a href="{%url 'packing-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Packing</a>
+         </div>
+         <div class="col col-md-6 pl-0">
+         <a href="{%url 'agw-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">auto grand water</a>
+         </div>
+         </div>
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+         <a href="{%url 'wl-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Well Logging</a>
+         </div>
+         <div class="col col-md-6 pl-0">
+         <a href="{%url 'll-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Litho Logging</a>
+         </div>
+         </div>
+         <div class="row">
+         <div class="col col-md-6 pr-0">
+         <a href="{%url 'ld-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Logging Data</a>
+         </div>
+         <div class="col col-md-6 pl-0">
+         <a href="{%url 'lp-list' id_field %}" class="list-group-item list-group-item-warning list-group-item-action">Log Plot</a>
+         </div>
+        </div>
+
+</div>
+
+      </div>
+        </div>
+  <div class="col col-md-6">
+
+</div>
+  </div>
+         <div class="row">
+
+            <div class="col col-md-12">
+
+                <div id="chart" class="border border-info p-2 m-2">
+
+                </div>
+
+                <script type="text/javascript" src="{% static 'js/highcharts.js' %}"></script>
+                <script type="text/javascript"  src="{% static 'js/exporting.js' %}"></script>
+                <script type="text/javascript" src="{% static 'js/offline-exporting.js'%}"></script>
+                <script type="text/javascript" src="{% static 'js/jspdf.min.js'%}"></script>
+                <script type="text/javascript">
+
+
+  Highcharts.chart('chart', {
+      chart: {
+          type: 'line'
+      },
+      title: {
+          text: 'Auto Ground Water Between [{{ auto_groundwaters_new.first.obs_date }}]  and  [{{ auto_groundwaters_new.last.obs_date }}]'+
+           ' for [Point Symbol: {{ xy_well.id_field}} ] '+
+
+      '  and  [Site Name is :{{ xy_well.sitename_e}} ] '
+      },
+      xAxis: {
+          categories: [
+            {% for entry in auto_groundwaters_new.all %}'{{ entry.obs_date }} '{% if not forloop.last %}, {% endif %}{% endfor %}
+          ]
+      },
+      series: [{
+          name: 'depth_m',
+          data: [
+            {% for entry1 in auto_groundwaters_new.all %}{{ entry1.depth_m }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'green'
+      },
+      {
+          name: 'gw_level_m',
+          data: [
+            {% for entry in airpressures_new.all %}{{ entry.gw_level_m }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          ],
+          color: 'red'
+      },
+
+      ],
+
+  });
+</script>
+            </div>
+        </div>
+    </div>
+  </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock content %}

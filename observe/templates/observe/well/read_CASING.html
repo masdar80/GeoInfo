@@ -1,0 +1,41 @@
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    casing_from:
+    {{ casing.casing_from }}
+  </div>
+  <div class="">
+    casing_to:
+    {{ casing.casing_to }}
+  </div>
+    <div class="">
+    casing_diameter:
+    {{ casing.casing_diameter  }}
+    €
+  </div>
+<div class="">
+    casing_type:
+    {{ casing.casing_type }}
+  </div>
+  <div class="">
+    data_source:
+    {{ casing.data_source }}
+  </div>
+      <div class="">
+    other_source:
+    {{ casing.other_source }}
+  </div>
+    <div class="">
+    remarks:
+    {{ casing.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

@@ -1,0 +1,45 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+
+  <div class="">
+    datetime:
+    {{ sectionareasurvey.datetime }}
+  </div>
+  <div class="">
+    sas_area:
+    {{ sectionareasurvey.sas_area }}
+  </div>
+    <div class="">
+    sas_surveyer:
+    {{ sectionareasurvey.sas_surveyer  }}
+    €
+  </div>
+
+<div class="">
+    sas_method:
+    {{ sectionareasurvey.sas_method }}
+  </div>
+  <div class="">
+    data_source:
+    {{ sectionareasurvey.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ sectionareasurvey.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ sectionareasurvey.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

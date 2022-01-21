@@ -1,0 +1,50 @@
+
+<form method="post"  action="">
+          {% csrf_token %}
+       <div class="modal-body">
+  <div class="">
+    pmp_pumpdepth:
+    {{ pumping.pmp_pumpdepth }}
+  </div>
+  <div class="">
+    pmp_startdatetime:
+    {{ pumping.pmp_startdatetime }}
+  </div>
+
+   <div class="">
+    pmp_enddatetime:
+    {{ pumping.pmp_enddatetime }}
+  </div>
+  <div class="">
+    pmp_discharge:
+    {{ pumping.pmp_discharge  }}
+    €
+  </div>
+  <div class="">
+    pmp_pumptype:
+    {{ pumping.pmp_pumptype  }}
+  </div>
+  <div class="">
+    pmp_generatortype:
+    {{ pumping.pmp_generatortype  }}
+  </div>
+  <div class="">
+    pmp_dischargemethod:
+    {{ pumping.pmp_dischargemethod  }}
+  </div>
+    <div class="">
+    pmp_capacitydevice:
+    {{ pumping.pmp_capacitydevice }}
+  </div>
+    <div class="">
+    pmp_manometertype:
+    {{ pumping.pmp_manometertype}}
+  </div>
+
+</div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

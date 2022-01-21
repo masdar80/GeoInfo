@@ -1,0 +1,43 @@
+
+
+
+<form method="post"  action="">
+          {% csrf_token %}
+  <div class="modal-body">
+  <div class="">
+    obs_datetime:
+    {{ groundwaterlevel.obs_datetime }}
+  </div>
+  <div class="">
+    depth_to_water:
+    {{ groundwaterlevel.depth_to_water }}
+  </div>
+    <div class="">
+    waterlevel:
+    {{ groundwaterlevel.waterlevel  }}
+    €
+  </div>
+ <div class="">
+    meas_method:
+    {{ groundwaterlevel.meas_method }}
+  </div>
+  <div class="">
+    data_source:
+    {{ groundwaterlevel.data_source }}
+  </div>
+    <div class="">
+    other_source:
+    {{ groundwaterlevel.other_source  }}
+    €
+  </div>
+      <div class="">
+    remarks:
+    {{ groundwaterlevel.remarks  }}
+    €
+  </div>
+</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+   </form>

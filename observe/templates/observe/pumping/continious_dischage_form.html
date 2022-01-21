@@ -1,0 +1,45 @@
+{% extends 'observe/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <div class="col col-md-3"></div>
+        <div class="col col-md-9">
+            <h1>Insert Or Update Reading</h1>
+            <br/>
+<div class="border p-2 m-2 ">
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col col-md-6">{{form.cds_date|as_crispy_field}}</div>
+            <div class="col col-md-6">{{form.cds_accumulate|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.cds_depth|as_crispy_field}}</div>
+             <div class="col col-md-6">{{form.cds_time|as_crispy_field}}</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">{{form.cds_drawdown|as_crispy_field}}</div>
+        </div>
+
+<div class="row">
+    <div class="col col-md-8">
+        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> </i> Submit</button>
+    </div>
+    <div class="col col-md-4">
+        <a href="{% url 'continious-dischage-list' pumping_id=pumping_id  %}" class="btn btn-warning btn-block btn-lg"><i class="fas fa-stream"> </i> Back</a>
+    </div>
+</div>
+
+
+
+    </form>
+</div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content%}
